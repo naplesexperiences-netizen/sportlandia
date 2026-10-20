@@ -25,11 +25,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # enablement: true accende Pages al primo giro, senza passare
-      # dalle impostazioni del repository a mano.
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
+      # Niente actions/configure-pages: serve solo ai generatori di siti
+      # statici per calcolare il base path, qui il sito e' gia' statico.
+      # In piu' al primo giro tentava di creare il sito Pages e falliva:
+      # il token di Actions puo' pubblicare su Pages, non accenderlo.
+      # Pages si accende una volta sola dalle impostazioni del repository
+      # (Settings -> Pages -> Source: GitHub Actions).
 
       # Il sito e' la radice del repository: index.html, images/, vendor/.
       - uses: actions/upload-pages-artifact@v3
