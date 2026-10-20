@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Controlli sul totem
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: HTMLHint
+        run: |
+          npm install -g htmlhint@1.1.4
+          htmlhint --config .htmlhintrc index.html
+
+      # Il totem gira in sede senza rete garantita: se GSAP sparisce dal
+      # repository la galleria non parte e lo schermo resta su una slide.
+      - name: GSAP e' vendorizzato
+        run: |
+          test -s vendor/gsap.min.js
+          grep -q 'vendor/gsap.min.js' index.html
+          echo "GSAP presente: $(wc -c < vendor/gsap.min.js) byte"
+
+      # Un background-image rotto non da' errore: la slide resta vuota.
+      # Qui si controlla che ogni immagine citata esista davvero.
+      - name: Ogni immagine citata esiste
+        run: |
+          mancanti=0
+          for f in $(grep -oE "images/[a-z0-9-]+\.webp" index.html | sort -u); do
+            if [ -s "$f" ]; then
+              echo "  ok      $f"
+            else
+              echo "  MANCA   $f"; mancanti=$((mancanti+1))
+            fi
+          done
+          [ "$mancanti" -eq 0 ] || { echo "::error::$mancanti immagini mancanti"; exit 1; }
+
+      # La v2 (GSAP, scala tipografica) sta intorno alle 775 righe; la
+      # versione vecchia che un merge aveva resuscitato ne aveva ~1400.
+      # Se il conteggio esplode, qualcuno ha riportato indietro il file.
+      - name: Non e' tornata la versione pre-v2
+        run: |
+          righe=$(wc -l < index.html)
+          echo "index.html: $righe righe"
+          if [ "$righe" -gt 1000 ]; then
+            echo "::error::$righe righe: sembra la versione pre-v2. Ripristina da backup/totem-funzionante."
+            exit 1
+          fi

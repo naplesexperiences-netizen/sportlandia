@@ -1,30 +1,39 @@
 # SPORTLANDIA - Kiosk Digitale Touch Screen
 
-> ## ⚠️ Demo in produzione — leggere prima di modificare
+> ## ⚠️ In produzione — leggere prima di modificare
 >
-> Questo totem è **installato e acceso** nella sede del cliente. Non è una demo
-> di prova.
+> Questo totem è **installato e acceso** nella sede del cliente a
+> Castellammare di Stabia. Quello che finisce su `main` finisce sullo schermo.
 >
-> **Copia di sicurezza:** branch `backup/sportlandia-kiosk`.
+> **Indirizzo pubblicato:** https://naplesexperiences-netizen.github.io/sportlandia/
 >
-> **Ripristino** (un comando, riporta il totem alla versione buona):
+> **Copia di sicurezza:** branch `backup/totem-funzionante`
+>
+> **Ripristino**, se qualcosa va storto:
 > ```
-> git fetch origin backup/sportlandia-kiosk
-> git checkout origin/backup/sportlandia-kiosk -- demos/sportlandia-kiosk/
+> git fetch origin backup/totem-funzionante
+> git checkout origin/backup/totem-funzionante -- .
 > ```
 >
-> **Regole per chi lavora in batch su tutte le demo** (SEO, meta tag, hub,
-> rigenerazioni automatiche):
-> 1. Prima di toccare questa cartella, riallinea il branch a `origin/main`.
->    A ottobre 2026 un branch SEO partito da una base vecchia ha vinto un
->    conflitto di merge e ha riportato indietro il totem di sette commit:
->    galleria GSAP, correzioni di accessibilità e scala tipografica, persi
->    tutti insieme e andati in onda sullo schermo del cliente.
-> 2. In un conflitto su `index.html`, **il lato giusto è quello di `main`**.
->    Riapplica sopra la tua modifica, non sostituire il file.
-> 3. Dopo la modifica, controlla che `index.html` sia ancora ~775 righe e che
->    contenga `vendor/gsap.min.js`. Se è intorno alle 1400 righe, hai
->    resuscitato la versione pre-v2: ripristina con il comando qui sopra.
+> ### Perché questo repository esiste
+>
+> Fino a ottobre 2026 il totem viveva dentro `experiences-demos`, in mezzo ad
+> altre 200 demo. Una passata automatica di meta tag SEO lo ha modificato
+> partendo da una base vecchia, ha vinto un conflitto di merge e lo ha
+> riportato indietro di sette commit: galleria GSAP, correzioni di
+> accessibilità e scala tipografica, persi insieme e finiti in onda sullo
+> schermo del cliente.
+>
+> Sta qui da solo perché il lavoro in blocco sui prototipi non possa più
+> raggiungerlo. Non è una questione di disciplina: è che adesso non è
+> fisicamente nello stesso posto.
+>
+> ### Se modifichi qualcosa
+>
+> La CI controlla da sola che GSAP sia ancora vendorizzato, che ogni immagine
+> citata esista e che `index.html` non sia tornato alla versione pre-v2 (~775
+> righe contro ~1400). Se diventa rossa, **non forzare**: è esattamente il
+> controllo che mancava quando il totem si è rotto.
 
 ## 📱 Descrizione
 
@@ -120,7 +129,7 @@ Footer con contatti Sportlandia e link a **naplesexperiences.com**.
 ## 📁 File Structure
 
 ```
-sportlandia-kiosk/
+sportlandia/   (radice del repository)
 ├── index.html           # Pagina unica: HTML, CSS e JS inline (~775 righe)
 ├── images/              # 13 WebP: locandine ufficiali, foto e logo
 ├── vendor/
