@@ -1,0 +1,13 @@
+# Tutto questo repository e' il totem installato in sede. Non c'e' niente
+# che si possa modificare "di passaggio": ogni file che cambia qui cambia
+# quello che il cliente vede sullo schermo.
+#
+# Per questo il proprietario e' su tutto, non su percorsi scelti. Qui il
+# costo di una revisione obbligatoria e' vicino a zero: a questo repository
+# si mette mano poche volte l'anno. Era l'opposto in experiences-demos, ed
+# e' il motivo per cui il totem e' stato portato via da li'.
+#
+# Perche' questo file abbia effetto serve il ruleset: istruzioni in
+# PROTEZIONE.md, nella radice.
+
+*                               @naplesexperiences-netizen
