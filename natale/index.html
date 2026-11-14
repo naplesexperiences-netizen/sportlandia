@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Sportlandia Infitness - Centro Fitness Castellammare di Stabia. Sala attrezzi, Pilates, Les Mills e molto altro.">
+<meta name="theme-color" content="#0b2a1c">
+<!-- Demo per cliente: non deve finire nei motori di ricerca -->
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SPORTLANDIA INFITNESS - Corsi e Attività">
+<meta property="og:description" content="Sportlandia Infitness - Centro Fitness Castellammare di Stabia. Sala attrezzi, Pilates, MET, Les Mills, Fisiorehab e molto altro.">
+<meta property="og:site_name" content="Experiences Srl">
+<title translate="no">SPORTLANDIA INFITNESS — Totem di Natale</title>
+<link rel="icon" href="../images/logo.webp" type="image/webp">
+
+<!-- Font non bloccante: su un totem senza rete un <link> normale ritarda il
+     primo render di ~12s. Fallback di sistema finche' Barlow non arriva. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap"></noscript>
+
+<style>
+:root{
+  /* Palette brand Sportlandia */
+  --navy:#062c5c;
+  --cobalt:#0d47a1;
+  --blue:#1976d2;
+  /* Versione di Natale: gli accenti ciano diventano oro. I nomi delle
+     variabili restano quelli dell'originale, cosi' le regole non cambiano. */
+  --cyan:#f2c14e;
+  --cyan-soft:#ffe08a;
+  --xmas-red:#c62828;
+  --xmas-red-deep:#8e1414;
+  --ink:#0a1c33;
+  --paper:#ffffff;
+
+  --font-display:'Barlow Condensed','Oswald','Arial Narrow',system-ui,sans-serif;
+  --font-body:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  /* Scala tipografica: 7 gradini, uno per ruolo. Nessun corpo fuori da questi.
+     xs microtesto - sm etichette - md corpo - lg sommario - xl/2xl/3xl titoli.
+     I tre breakpoint ridefiniscono i valori, non le regole che li usano. */
+  --text-xs:.75rem;
+  --text-sm:.9rem;
+  --text-md:1.05rem;
+  --text-lg:1.2rem;
+  --text-xl:2rem;
+  --text-2xl:2.5rem;
+  --text-3xl:3rem;
+
+  /* Interlettere: maiuscoletto spaziato entro il 5-12% leggibile.
+     Sopra il 15% le parole si disgregano in lettere sciolte. */
+  --tracking-caps:.12em;
+  --tracking-wide:.08em;
+
+  /* Scala di spaziatura: griglia da 4px. Ogni padding, margin e gap
+     del layout e' un multiplo di --space-unit, mai un valore libero.
+     I breakpoint cambiano solo l'unita': i rapporti restano identici. */
+  --space-unit:4px;
+  --space-1:calc(var(--space-unit) * 1);
+  --space-2:calc(var(--space-unit) * 2);
+  --space-3:calc(var(--space-unit) * 3);
+  --space-4:calc(var(--space-unit) * 4);
+  --space-5:calc(var(--space-unit) * 5);
+  --space-6:calc(var(--space-unit) * 6);
+  --space-7:calc(var(--space-unit) * 8);
+  --space-8:calc(var(--space-unit) * 10);
+  --space-9:calc(var(--space-unit) * 13);
+  --space-10:calc(var(--space-unit) * 18);
+
+  /* Altezze delle fasce fisse: le locandine si adattano a queste */
+  --g:30px;                    /* spessore della ghirlanda-cornice */
+  --chrome-top:228px;
+  --chrome-bottom:282px;
+  --footer-h:78px;
+
+  --btn:58px;                  /* pulsanti e contatore: stessa altezza */
+  --dur-fast:.22s;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+html{color-scheme:dark}
+html,body{height:100%}
+body{
+  font-family:var(--font-body);
+  background:var(--navy);
+  color:#fff;
+  overflow:hidden;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+  overscroll-behavior:none;
+}
+
+/* Sfondo ambientale: resta dietro alle locandine in formato 3:4 */
+.ambient{position:fixed;inset:0;z-index:0;background:
+  radial-gradient(120% 60% at 50% 0%,rgba(242,193,78,.20),transparent 60%),
+  linear-gradient(180deg,#04213f 0%,var(--navy) 40%,var(--cobalt) 100%);}
+.ambient::after{content:'';position:absolute;inset:0;opacity:.5;
+  background:radial-gradient(60% 40% at 50% 100%,rgba(25,118,210,.5),transparent 70%);}
+
+/* ============ ACCESSIBILITA' ============ */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:4px;border-radius:12px}
+
+/* ============ HEADER ============ */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:30;
+  /* viewport-fit=cover e' dichiarato: senza env() il contenuto finirebbe
+     sotto notch e barre di sistema quando non e' su un totem a cornice piena */
+  padding:calc(var(--space-6) + var(--g) + env(safe-area-inset-top)) calc(var(--space-7) + env(safe-area-inset-right)) var(--space-9)
+          calc(var(--space-7) + env(safe-area-inset-left));
+  text-align:center;pointer-events:none;
+  background:linear-gradient(180deg,rgba(4,27,52,.94) 0%,rgba(6,44,92,.72) 46%,rgba(6,44,92,.18) 82%,transparent 100%);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+}
+.brand-mark{
+  width:74px;height:74px;margin:0 auto var(--space-3);border-radius:50%;
+  background:#fff;padding:9px;display:grid;place-items:center;
+  box-shadow:0 10px 28px rgba(242,193,78,.35),0 0 0 1px rgba(255,255,255,.18);
+}
+.brand-mark img{width:100%;height:100%;object-fit:contain}
+/* .42em spezzava "Infitness Castellammare" in lettere sciolte: da lontano
+   si leggeva una sequenza, non una parola. Riportato nel 5-12%. */
+.brand-kicker{
+  font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;
+  letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--cyan-soft);
+  margin-bottom:var(--space-1);text-indent:var(--tracking-caps);
+}
+.brand-name{
+  font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;
+  letter-spacing:var(--tracking-caps);line-height:1;text-indent:var(--tracking-caps);
+  background:linear-gradient(105deg,#fff 0%,#fff3cf 45%,var(--cyan-soft) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.brand-tag{
+  font-size:var(--text-sm);font-weight:300;color:rgba(255,255,255,.82);margin-top:var(--space-2);
+  text-shadow:0 2px 12px rgba(0,0,0,.6);
+}
+
+/* ============ PALCO / SLIDE ============ */
+.stage{position:fixed;inset:0;z-index:10}
+.deck{position:absolute;inset:0;perspective:2200px}
+
+.slide{
+  position:absolute;inset:0;
+  visibility:hidden;opacity:0;
+  will-change:transform,opacity;
+}
+/* Superficie cliccabile: un <button> vero sopra tutta la slide, cosi' gli
+   orari si aprono anche da tastiera. Il testo resta fuori dal button
+   (un <button> non puo' contenere <h2>) e lascia passare i click. */
+.slide-hit{
+  position:absolute;inset:0;z-index:3;
+  border:0;background:none;padding:0;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
+}
+.slide-hit:focus-visible{outline:5px solid var(--cyan);outline-offset:-14px;border-radius:0}
+.slide-copy{pointer-events:none}
+
+/* Se una locandina non carica, la slide non resta blu e muta */
+.slide-fallback{
+  display:none;position:absolute;inset:0;z-index:2;
+  place-items:center;text-align:center;
+  padding:var(--chrome-top) 12% var(--chrome-bottom);
+}
+.slide.no-img .slide-fallback{display:grid}
+.slide.no-img .slide-img,
+.slide.no-img .slide-media::before,
+.slide.no-img .slide-media::after{display:none}
+.slide-fallback h2{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;margin-bottom:var(--space-3)}
+.slide-fallback p{font-size:var(--text-md);font-weight:300;color:rgba(255,255,255,.85)}
+
+.slide-media{position:absolute;inset:0;overflow:hidden}
+.slide-img{
+  position:absolute;inset:0;
+  background-repeat:no-repeat;background-position:center;
+  will-change:transform;
+}
+
+/* Locandina: mostrata per intero, mai tagliata, dentro la fascia libera */
+.slide[data-kind="poster"] .slide-img{
+  top:var(--chrome-top);bottom:var(--chrome-bottom);left:var(--g);right:var(--g);
+  background-size:contain;
+}
+/* Alone morbido dietro la locandina, la stacca dal fondo */
+.slide[data-kind="poster"] .slide-media::before{
+  content:'';position:absolute;left:0;right:0;
+  top:var(--chrome-top);bottom:var(--chrome-bottom);
+  background:radial-gradient(70% 55% at 50% 50%,rgba(242,193,78,.18),transparent 72%);
+}
+
+/* Foto: riempie lo schermo con velatura per leggere il testo */
+.slide[data-kind="photo"] .slide-img{inset:0;background-size:cover}
+.slide[data-kind="photo"] .slide-media::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,44,92,.62) 0%,rgba(6,44,92,.12) 20%,
+    transparent 40%,rgba(6,44,92,.55) 68%,rgba(4,27,52,.96) 94%);
+}
+
+/* ============ TESTO (solo slide foto) ============ */
+.slide-copy{
+  position:absolute;left:0;right:0;bottom:var(--chrome-bottom);
+  padding:0 var(--space-8) var(--space-7);z-index:2;
+}
+.slide[data-kind="poster"] .slide-copy{display:none}
+
+.tag{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  padding:var(--space-2) var(--space-5);margin-bottom:var(--space-4);
+  background:linear-gradient(180deg,var(--xmas-red),var(--xmas-red-deep));color:#fff;border-radius:99px;
+  font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;
+  letter-spacing:var(--tracking-caps);text-transform:uppercase;
+  box-shadow:0 6px 20px rgba(198,40,40,.5);
+}
+.slide-title{
+  font-family:var(--font-display);font-size:var(--text-3xl);font-weight:700;
+  line-height:.98;letter-spacing:.01em;margin-bottom:var(--space-3);
+  text-shadow:0 6px 28px rgba(0,0,0,.85);
+}
+.slide-text{
+  font-size:var(--text-lg);font-weight:300;line-height:1.45;max-width:640px;
+  color:rgba(255,255,255,.93);margin-bottom:var(--space-6);
+  text-shadow:0 2px 14px rgba(0,0,0,.85);
+}
+.cta{
+  display:inline-flex;align-items:center;gap:var(--space-3);
+  padding:var(--space-4) var(--space-6);border-radius:99px;
+  background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.34);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  font-family:var(--font-display);font-size:var(--text-md);font-weight:600;
+  letter-spacing:var(--tracking-wide);
+  text-transform:uppercase;color:#fff;
+}
+.cta svg{width:22px;height:22px}
+
+/* ============ CONTROLLI ============ */
+.controls{
+  position:fixed;left:0;right:0;bottom:calc(var(--footer-h,78px) + var(--g));z-index:40;
+  padding:var(--space-4) calc(var(--space-6) + env(safe-area-inset-right)) var(--space-4) calc(var(--space-6) + env(safe-area-inset-left));
+  background:linear-gradient(0deg,rgba(4,27,52,.82) 0%,rgba(6,44,92,.42) 62%,transparent 100%);
+  pointer-events:none;
+}
+.controls>*{pointer-events:auto}
+
+.rail{height:4px;border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden;margin-bottom:var(--space-4)}
+.rail-fill{height:100%;width:100%;transform:scaleX(0);transform-origin:left center;
+  border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--cyan-soft));
+  box-shadow:0 0 14px rgba(242,193,78,.8)}
+
+.dots{display:flex;justify-content:center;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-4)}
+.dot{
+  width:30px;height:26px;padding:var(--space-2) 0;border:0;background:none;cursor:pointer;
+  display:grid;place-items:center;
+}
+/* La larghezza sta qui e non in JS: il nodo <i> non va piu' ricreato a ogni
+   cambio slide, altrimenti la transizione non ha un elemento su cui animare */
+.dot i{display:block;width:60%;height:5px;border-radius:99px;
+  background:rgba(255,255,255,.3);transition:background var(--dur-fast),width var(--dur-fast)}
+.dot.is-on i{width:100%;background:var(--cyan);box-shadow:0 0 12px rgba(242,193,78,.75)}
+
+.nav{display:flex;justify-content:center;align-items:center;gap:var(--space-4)}
+/* --btn tiene pulsanti e contatore esattamente della stessa altezza */
+.btn{
+  width:var(--btn);height:var(--btn);border-radius:50%;flex-shrink:0;
+  display:grid;place-items:center;cursor:pointer;
+  background:rgba(255,255,255,.13);border:1.5px solid rgba(255,255,255,.3);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  color:#fff;transition:background var(--dur-fast),transform var(--dur-fast),border-color var(--dur-fast);
+}
+.btn svg{width:calc(var(--btn) * .45);height:calc(var(--btn) * .45)}
+.btn:hover,.btn:active{background:var(--cyan);border-color:var(--cyan);color:#3a2600;transform:scale(1.07)}
+.counter{
+  height:var(--btn);min-width:calc(var(--btn) * 1.85);flex-shrink:0;
+  /* flex e non grid: con inline-grid "5", "/" e "12" finirebbero su tre righe */
+  display:inline-flex;align-items:center;justify-content:center;gap:.22em;
+  padding:0 calc(var(--btn) * .32);border-radius:99px;
+  /* stessa superficie dei pulsanti: con un fondo piu' scuro dello sfondo la
+     pillola sprofondava e sembrava piu' piccola, pur essendo alta uguale */
+  background:rgba(255,255,255,.13);border:1.5px solid rgba(255,255,255,.3);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  font-family:var(--font-display);font-weight:600;letter-spacing:.06em;
+  font-size:calc(var(--btn) * .4);line-height:1;white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.counter b{color:var(--cyan);font-size:calc(var(--btn) * .5)}
+
+/* ============ FOOTER ============ */
+.footer{
+  position:fixed;left:var(--g);right:var(--g);bottom:var(--g);z-index:45;
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
+  padding:var(--space-3) calc(var(--space-6) + env(safe-area-inset-right)) calc(var(--space-3) + env(safe-area-inset-bottom))
+          calc(var(--space-6) + env(safe-area-inset-left));
+  min-height:var(--footer-h);
+  background:rgba(4,27,52,.72);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  border-top:1px solid rgba(242,193,78,.3);
+}
+.f-name{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;
+  letter-spacing:var(--tracking-wide);color:var(--cyan);text-transform:uppercase}
+.f-rows{display:flex;flex-direction:column;gap:var(--space-1);flex:1 1 auto;min-width:0}
+.f-row{display:flex;align-items:center;gap:var(--space-4);flex-wrap:nowrap;min-width:0;overflow:hidden;
+  font-size:var(--text-xs);color:rgba(255,255,255,.84);white-space:nowrap}
+/* L'indirizzo ha la sua riga: affiancato al telefono veniva tagliato a meta'
+   parola, e su un totem l'indirizzo e' l'informazione che si va a leggere.
+   text-overflow non agisce su un contenitore flex: il taglio, se resta,
+   deve avvenire dentro .f-txt, che e' l'unico elemento di solo testo. */
+.f-row>span{display:inline-flex;align-items:center;gap:var(--space-2);min-width:0}
+.f-row>span:last-child{flex:0 0 auto}
+.f-txt{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.f-row svg{width:13px;height:13px;flex-shrink:0;color:var(--cyan-soft)}
+.f-hours{color:#fff;font-weight:500}
+.f-brand{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;
+  text-decoration:none;padding:var(--space-2) var(--space-4);border-radius:99px;
+  border:1px solid rgba(242,193,78,.34);background:rgba(242,193,78,.12);
+  transition:background var(--dur-fast),transform var(--dur-fast);
+}
+/* .24em su un corpo da 9px rendeva "POWERED BY" illeggibile a distanza:
+   sale al gradino xs e rientra nel tracking dei maiuscoletti */
+.f-brand small{font-size:var(--text-xs);letter-spacing:var(--tracking-caps);
+  text-transform:uppercase;color:rgba(255,255,255,.6)}
+.f-brand strong{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;
+  letter-spacing:.05em;
+  background:linear-gradient(105deg,var(--cyan),var(--cyan-soft));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ============ MODALE ORARI ============ */
+.sheet{
+  position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:var(--space-7);
+  background:rgba(2,14,28,.84);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+}
+.sheet.open{display:grid}
+.sheet-card{
+  width:100%;max-width:620px;max-height:84vh;overflow:hidden;border-radius:28px;
+  background:linear-gradient(180deg,#fff 0%,#f3f7fb 100%);color:var(--ink);
+  display:flex;flex-direction:column;box-shadow:0 40px 90px rgba(0,0,0,.6);
+}
+.sheet-head{position:relative;padding:var(--space-7);color:#fff;
+  background:linear-gradient(120deg,#0f4d2e,#1b6b3f)}
+.sheet-head .tag{margin-bottom:var(--space-3)}
+.sheet-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;line-height:1.05}
+.sheet-close{
+  position:absolute;top:var(--space-5);right:var(--space-5);width:48px;height:48px;border-radius:50%;
+  border:0;background:rgba(255,255,255,.94);color:var(--cobalt);
+  display:grid;place-items:center;cursor:pointer;
+  transition:transform var(--dur-fast),background var(--dur-fast);
+}
+.sheet-close svg{width:22px;height:22px}
+.sheet-close:hover{background:var(--cyan);color:#fff;transform:rotate(90deg)}
+.sheet-body{padding:var(--space-6) var(--space-7) var(--space-7);overflow-y:auto;overscroll-behavior:contain}
+.sheet-label{
+  display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-5);
+  font-family:var(--font-display);font-size:var(--text-md);font-weight:700;
+  letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--cobalt);
+}
+.sheet-label svg{width:22px;height:22px;color:var(--cyan)}
+.row{
+  display:flex;gap:var(--space-5);padding:var(--space-4) var(--space-5);
+  margin-bottom:var(--space-3);border-radius:14px;
+  background:linear-gradient(120deg,#f7fafd,#e9f1f8);border-left:5px solid var(--cyan);
+}
+/* La colonna dei giorni si dimensiona sul corpo del testo, non su un px fisso:
+   a 230px "Sabato" lasciava mezzo riquadro vuoto prima dell'orario */
+.row dt{min-width:calc(var(--text-sm) * 8);font-weight:700;color:var(--cobalt);font-size:var(--text-sm)}
+.row dd{flex:1;color:#37485c;font-size:var(--text-sm);font-weight:500}
+
+/* ============ 42" — 1080x1920 ============ */
+/* Non ripete piu' i corpi e le spaziature una per una: ridefinisce i token e
+   tutte le regole seguono. Restano solo le misure fisiche dei componenti. */
+@media (min-height:1600px){
+  :root{
+    --g:48px;--chrome-top:348px;--chrome-bottom:388px;--footer-h:112px;--btn:86px;
+    --space-unit:6px;
+    --text-xs:1rem;--text-sm:1.25rem;--text-md:1.35rem;--text-lg:1.6rem;
+    --text-xl:2.7rem;--text-2xl:3.6rem;--text-3xl:4.2rem;
+  }
+  .brand-mark{width:110px;height:110px;padding:13px}
+  .slide-text{max-width:860px}
+  .cta svg{width:28px;height:28px}
+  .rail{height:6px}
+  .dot{width:44px;height:34px}
+  .dot i{height:7px}
+  .f-row svg{width:18px;height:18px}
+  .sheet-card{max-width:820px}
+}
+
+/* ============ Mobile / anteprima ============ */
+@media (max-width:520px){
+  :root{
+    --g:18px;--chrome-top:170px;--chrome-bottom:266px;--footer-h:120px;--btn:46px;
+    --space-unit:3px;
+    --text-xs:.62rem;--text-sm:.74rem;--text-md:.86rem;--text-lg:.95rem;
+    --text-xl:1.5rem;--text-2xl:1.75rem;--text-3xl:1.9rem;
+  }
+  .brand-mark{width:52px;height:52px;padding:7px}
+  .dot{width:22px;height:22px}
+  .dot i{height:4px}
+  /* alla larghezza del telefono orario e numero non stanno sulla stessa riga:
+     invece di troncare l'orario a meta', il numero va a capo */
+  /* A 412px il bollino "naplesexperiences.com" occupa meta' del footer e
+     lascia ai contatti 169px: l'indirizzo non ci sta in nessun modo.
+     In colonna i contatti hanno tutta la larghezza e non si troncano. */
+  .footer{flex-direction:column;align-items:stretch;gap:var(--space-3)}
+  .f-brand{align-self:flex-end}
+  /* in colonna la chiave non deve piu' riservare la sua corsia */
+  .row{flex-direction:column;gap:var(--space-1)}
+  .row dt{min-width:0}
+}
+
+
+/* ================= NATALE ================= */
+/* Ghirlanda-cornice: abete disegnato una volta su canvas (ricalcolato solo al
+   resize), lucine in DOM animate solo in opacita' (costo GPU trascurabile).
+   Sta sopra a tutto, modale compresa, e non intercetta mai i tocchi. */
+.garland{position:fixed;inset:0;z-index:110;pointer-events:none}
+.garland canvas{position:absolute;inset:0;width:100%;height:100%}
+.garland .light{
+  position:absolute;width:calc(var(--g) * .32);height:calc(var(--g) * .42);
+  margin:calc(var(--g) * -.21) 0 0 calc(var(--g) * -.16);
+  border-radius:50% 50% 46% 46%;background:var(--c);
+  box-shadow:0 0 calc(var(--g) * .35) calc(var(--g) * .08) var(--c);
+  animation:twinkle var(--t,2.4s) ease-in-out var(--d,0s) infinite alternate;
+}
+@keyframes twinkle{0%{opacity:1}55%{opacity:.85}100%{opacity:.25}}
+.garland .bow{position:absolute;width:calc(var(--g) * 3);height:calc(var(--g) * 2.2);
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+
+/* Nevicata in sovraimpressione: sopra slide e controlli, sotto la modale
+   (gli orari devono restare leggibili). Il canvas e' vuoto tra un episodio
+   e l'altro e in quel tempo il ciclo di disegno e' fermo. */
+.snow{position:fixed;inset:0;z-index:95;pointer-events:none;width:100%;height:100%}
+
+/* Pulsante musica: stesso stile dei pulsanti di navigazione */
+.btn.is-muted{opacity:.6}
+
+@media (prefers-reduced-motion:reduce){
+  .garland .light{animation:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true"></div>
+
+<header class="header">
+  <div class="brand-mark"><img src="../images/logo.webp" alt="" width="74" height="74"></div>
+  <p class="brand-kicker">Buone Feste da Infitness Castellammare</p>
+  <h1 class="brand-name" translate="no">SPORTLANDIA</h1>
+  <p class="brand-tag">Rendi il tuo corpo sano e in forma</p>
+</header>
+
+<main class="stage">
+  <div class="deck" id="deck" aria-roledescription="carosello" aria-label="Corsi e orari Sportlandia"></div>
+</main>
+
+<div class="controls">
+  <div class="rail" aria-hidden="true"><div class="rail-fill" id="rail"></div></div>
+  <div class="dots" id="dots" role="group" aria-label="Vai a un corso"></div>
+  <div class="nav">
+    <button class="btn" id="prev" type="button" aria-label="Corso precedente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <p class="counter"><b id="cur">1</b> / <span id="tot">12</span></p>
+    <button class="btn" id="toggle" type="button" aria-label="Metti in pausa lo scorrimento automatico">
+      <svg id="icoPause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 4v16M14 4v16"/></svg>
+      <svg id="icoPlay" style="display:none" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12z"/></svg>
+    </button>
+    <button class="btn" id="next" type="button" aria-label="Corso successivo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+    <button class="btn" id="music" type="button" aria-label="Disattiva la musica di Natale" aria-pressed="true">
+      <svg id="icoSound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <svg id="icoMute" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M3 3l18 18"/></svg>
+    </button>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="f-rows">
+    <p class="f-name" translate="no">Sportlandia · SSD Infitness ARL</p>
+    <p class="f-row">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span class="f-txt">Corso Alcide De Gasperi, 177/B — Castellammare di Stabia</span></span>
+    </p>
+    <p class="f-row">
+      <span class="f-hours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="f-txt">Lun–Ven 07:00–21:00 · Sabato 08:00–12:30</span></span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span class="f-txt">081 871 8076</span></span>
+    </p>
+  </div>
+  <p class="f-brand">
+    <small>Powered by</small><strong translate="no">naplesexperiences.com</strong>
+  </p>
+</footer>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet-card">
+    <div class="sheet-head">
+      <button class="sheet-close" id="sheetClose" type="button" aria-label="Chiudi gli orari">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <p class="tag" id="sheetTag">Corso</p>
+      <h2 class="sheet-title" id="sheetTitle">Titolo</h2>
+    </div>
+    <div class="sheet-body">
+      <p class="sheet-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Orari del corso
+      </p>
+      <dl id="sheetRows"></dl>
+    </div>
+  </div>
+</div>
+
+<canvas class="snow" id="snow" aria-hidden="true"></canvas>
+<div class="garland" id="garland" aria-hidden="true"><canvas id="garlandCanvas"></canvas></div>
+<template id="bowTpl"><svg viewBox="0 0 120 88" aria-hidden="true"><defs><linearGradient id="bowG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e53935"/><stop offset="1" stop-color="#8e1414"/></linearGradient></defs><path d="M60 40C44 18 14 6 8 20c-6 15 12 34 52 22Z" fill="url(#bowG)"/><path d="M60 40C76 18 106 6 112 20c6 15-12 34-52 22Z" fill="url(#bowG)"/><path d="M56 44 34 84l12-4 8 8 6-40Zm8 0 22 40-12-4-8 8-6-40Z" fill="url(#bowG)"/><circle cx="60" cy="42" r="9" fill="#b71c1c"/><path d="M20 20c10-4 24 4 34 16M100 20c-10-4-24 4-34 16" stroke="#ff8a80" stroke-width="2.5" fill="none" opacity=".7"/></svg></template>
+
+<p class="sr-only" aria-live="polite" id="live"></p>
+
+<script src="../vendor/gsap.min.js"></script>
+<script>
+(() => {
+'use strict';
+
+const COURSES = [
+  { title:"Sala Attrezzi", tag:"Fitness", img:"../images/sala-attrezzi.webp", poster:true,
+    text:"Allenamento completo con macchinari isotonici, pesi liberi e cardio. Sala sempre aperta negli orari del centro.",
+    hours:{ "Lun–Ven":"07:00–21:00", "Sabato":"08:00–12:00" } },
+
+  { title:"Pilates Matwork", tag:"Pilates · Base / Intermedio / Avanzato", img:"../images/pilates-matwork.webp", poster:true,
+    text:"Pilates a corpo libero su tappetino. Tre livelli: Base, Intermedio e Avanzato. Migliora postura, equilibrio e forza del core.",
+    hours:{ "Giorni dispari (Lun · Mer · Ven)":"09:00 Intermedio · 11:00 Base · 16:00 Base · 18:00 Avanzato · 19:00 Intermedio · 20:00 Base",
+            "Giorni pari (Mar · Gio)":"10:00 Base · 14:00 Base · 16:00 Base · 18:00 Intermedio" } },
+
+  { title:"Pilates Reformer", tag:"Pilates", img:"../images/pilates-reformer.webp", poster:true,
+    text:"Pilates con il macchinario professionale Reformer. Allenamento personalizzato per tonificare e allungare la muscolatura.",
+    hours:{ "Lun–Ven":"09:00–21:00", "Sabato":"09:00 · 10:00", "Info":"Prenotazione obbligatoria" } },
+
+  { title:"Pilates Studio", tag:"Pilates · Su appuntamento", img:"../images/pilates-studio.webp", poster:false,
+    text:"Sessioni Pilates Studio con Cadillac, Barile e attrezzi avanzati. Lezioni individuali o duette su appuntamento.",
+    hours:{ "Lun–Ven":"Su appuntamento", "Sabato":"Su prenotazione", "Info":"Tel. 081 871 8076" } },
+
+  { title:"Pilates Tec Room", tag:"Pilates · Sala Tecnica", img:"../images/pilates-tec-room.webp", poster:true,
+    text:"Lezioni a orario fisso nella sala tecnica: Cadillac, Wunda Chair e grandi attrezzi per postura, mobilità e forza controllata.",
+    hours:{ "Giorni pari (Mar · Gio)":"dalle 09:00 alle 17:00", "Turni":"09:00 · 10:00 · 11:00 · 12:00 · 14:00 · 15:00 · 16:00" } },
+
+  { title:"Les Mills Shapes", tag:"Les Mills · Tonificazione", img:"../images/lesmills-shapes.webp", poster:true,
+    text:"45 minuti a basso impatto che fondono Pilates, sculpt e power yoga in un format fluido.",
+    hours:{ "Giorni dispari (Lun · Mer · Ven)":"10:00 · 17:00", "Giorni pari (Mar · Gio)":"20:00", "Sabato":"10:00" } },
+
+  { title:"Les Mills Strength Development", tag:"Les Mills · Forza", img:"../images/lesmills-strength.webp", poster:true,
+    text:"Forza progressiva che costruisce muscoli e potenza. Bilancieri, dischi e peso del corpo, adatto a tutti i livelli.",
+    hours:{ "Giorni dispari (Lun · Mer · Ven)":"14:00", "Giorni pari (Mar · Gio)":"19:00" } },
+
+  { title:"Les Mills Ceremony", tag:"Les Mills · X Hyrox", img:"../images/lesmills-ceremony.webp", poster:true,
+    text:"Funzionale di gruppo ad alta intensità: circuito di forza, cardio e agilità con bilancieri, kettlebell, vogatori e air bike.",
+    hours:{ "Giorni dispari (Lun · Mer · Ven)":"15:00 · 17:00 · 20:00", "Giorni pari (Mar · Gio)":"14:00 · 17:00 · 18:00" } },
+
+  { title:"Les Mills BodyBalance", tag:"Les Mills · Equilibrio", img:"../images/lesmills-balance.webp", poster:true,
+    text:"Yoga, Tai Chi e pilates per forza, flessibilità e mobilità. Riduce lo stress e favorisce il benessere mentale e fisico.",
+    hours:{ "Giorni pari (Mar · Gio)":"08:00 · 17:00", "Sabato":"09:00" } },
+
+  { title:"Orari Completi", tag:"Programmazione Settimanale", img:"../images/orari.webp", poster:true,
+    text:"Il quadro orario completo di tutte le sale e di tutti i corsi, giorno per giorno.",
+    hours:{ "Apertura Lun–Ven":"07:00–21:00", "Apertura Sabato":"08:00–12:30", "Info e prenotazioni":"Tel. 081 871 8076" } },
+
+  { title:"Fisiorehab 360", tag:"Riabilitazione", img:"../images/fisiorehab.webp", poster:false,
+    text:"Centro di fisioterapia e riabilitazione integrata. Programmi personalizzati per il recupero funzionale.",
+    hours:{ "Lun–Ven":"Su appuntamento", "Sabato":"Su prenotazione", "Info":"Tel. 081 871 8076" } },
+
+  { title:"GREENtosi", tag:"Eco-Wellness", img:"../images/greentosi.webp", poster:false,
+    text:"Il nostro impegno per la sostenibilità: impianto fotovoltaico, energia rinnovabile e iniziative eco-friendly.",
+    hours:{ "Impegno":"Sportlandia è 100% green", "Energia":"Da fonti rinnovabili", "Iniziative":"Eventi periodici" } }
+];
+
+const DWELL = 7;                    // secondi di permanenza per slide
+const $ = id => document.getElementById(id);
+const deck = $('deck'), dots = $('dots'), rail = $('rail'), live = $('live');
+const sheet = $('sheet');
+
+let slides = [], index = 0, dwell = null, flow = null;
+let playing = true, onscreen = true, sheetOpen = false;
+
+const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+const D = () => reduce.matches ? 0 : 1;   // moltiplicatore durate
+
+/* ---------- costruzione ---------- */
+COURSES.forEach((c, i) => {
+  const s = document.createElement('article');
+  s.className = 'slide';
+  s.dataset.kind = c.poster ? 'poster' : 'photo';
+  s.setAttribute('aria-roledescription','slide');
+  s.setAttribute('aria-label', `${i+1} di ${COURSES.length}: ${c.title}`);
+  s.innerHTML =
+    `<div class="slide-media"><div class="slide-img" style="background-image:url('${c.img}')"></div></div>` +
+    `<div class="slide-fallback"><h2>${c.title}</h2><p>${c.text}</p></div>` +
+    (c.poster ? '' :
+      `<div class="slide-copy">
+         <p class="tag">${c.tag}</p>
+         <h2 class="slide-title">${c.title}</h2>
+         <p class="slide-text">${c.text}</p>
+         <p class="cta" aria-hidden="true">Vedi orari
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+         </p>
+       </div>`) +
+    `<button class="slide-hit" type="button" aria-label="Vedi gli orari di ${c.title}"></button>`;
+  s.querySelector('.slide-hit').addEventListener('click', () => openSheet(i));
+  deck.appendChild(s);
+  slides.push(s);
+
+  // un background-image non emette onerror: lo verifico a parte, cosi' una
+  // locandina mancante mostra nome e descrizione invece di uno schermo blu
+  const probe = new Image();
+  probe.onerror = () => s.classList.add('no-img');
+  probe.src = c.img;
+
+  const d = document.createElement('button');
+  d.className = 'dot'; d.type = 'button';
+  d.setAttribute('aria-label', `Vai a ${c.title}`);
+  d.innerHTML = '<i></i>';          // creato una volta sola, mai riscritto
+  d.addEventListener('click', () => goTo(i, 'manual'));
+  dots.appendChild(d);
+});
+$('tot').textContent = COURSES.length;
+
+gsap.set(slides, { autoAlpha:0 });
+gsap.set(slides[0], { autoAlpha:1 });
+paint(false);
+kenBurns(slides[0]);
+
+/* ---------- transizioni ---------- */
+// manuale = movimento direzionale (dice "avanti/indietro")
+// automatica = dissolvenza ambientale (non simula un gesto che nessuno ha fatto)
+function transition(to, mode, dir) {
+  if (flow) flow.kill();
+  const from = slides[index], next = slides[to];
+  gsap.killTweensOf([from, next]);
+
+  index = to;
+  paint(mode === 'manual');
+
+  if (!D()) {                      // reduced motion: stato finale, nessun moto
+    gsap.set(from, { autoAlpha:0, xPercent:0, scale:1 });
+    gsap.set(next, { autoAlpha:1, xPercent:0, scale:1, zIndex:2 });
+    startDwell();
+    return;
+  }
+
+  gsap.set(next, { zIndex:2 });
+  gsap.set(from, { zIndex:1 });
+  flow = gsap.timeline({ onComplete(){ gsap.set(from,{ autoAlpha:0 }); startDwell(); } });
+
+  if (mode === 'manual') {
+    flow.fromTo(next, { autoAlpha:1, xPercent:100*dir, scale:1.05 },
+                      { xPercent:0, scale:1, duration:.85, ease:'expo.inOut' }, 0)
+        .to(from,     { xPercent:-26*dir, scale:.94, autoAlpha:0, duration:.85, ease:'expo.inOut' }, 0);
+  } else {
+    flow.fromTo(next, { autoAlpha:0, scale:1.07 },
+                      { autoAlpha:1, scale:1, duration:1.15, ease:'power2.out' }, 0)
+        .to(from,     { autoAlpha:0, scale:.985, duration:.8, ease:'power1.inOut' }, 0);
+  }
+
+  // il testo entra dopo l'immagine, mai insieme: si legge una cosa alla volta
+  const copy = next.querySelectorAll('.tag,.slide-title,.slide-text,.cta');
+  if (copy.length) {
+    flow.fromTo(copy, { autoAlpha:0, y:26 },
+      { autoAlpha:1, y:0, duration:.55, stagger:.07, ease:'power2.out' }, .3);
+  }
+  kenBurns(next);
+}
+
+// Ken Burns solo sulle foto: su una locandina sposterebbe il testo stampato
+function kenBurns(slide) {
+  const img = slide.querySelector('.slide-img');
+  gsap.killTweensOf(img);
+  if (slide.dataset.kind !== 'photo' || !D()) { gsap.set(img,{ scale:1, x:0, y:0 }); return; }
+  gsap.fromTo(img, { scale:1.02, x:0, y:0 },
+    { scale:1.1, x:'1.5%', y:'-1.2%', duration:14, ease:'sine.inOut', repeat:-1, yoyo:true });
+}
+
+// announce=false sullo scorrimento automatico: annunciare ogni 7 secondi
+// all'infinito rende lo screen reader inascoltabile
+function paint(announce) {
+  $('cur').textContent = index + 1;
+  dots.querySelectorAll('.dot').forEach((d,i) => {
+    const on = i === index;
+    d.classList.toggle('is-on', on);
+    on ? d.setAttribute('aria-current','true') : d.removeAttribute('aria-current');
+  });
+  if (announce) live.textContent = `${index+1} di ${COURSES.length}: ${COURSES[index].title}`;
+}
+
+/* ---------- avanzamento automatico ---------- */
+// un solo timer, ed e' la barra stessa: cosi' non possono desincronizzarsi
+function startDwell() {
+  stopDwell();
+  if (!playing || sheetOpen || !onscreen || document.hidden) { gsap.set(rail,{scaleX:0}); return; }
+  dwell = gsap.fromTo(rail, { scaleX:0 },
+    { scaleX:1, duration:DWELL, ease:'none', onComplete:() => goTo((index+1)%COURSES.length,'auto') });
+}
+function stopDwell(){ if (dwell) { dwell.kill(); dwell = null; } }
+
+function goTo(to, mode) {
+  if (to === index) return;
+  const total = COURSES.length;
+  const dir = mode === 'auto' ? 1
+            : ((to - index + total) % total) <= ((index - to + total) % total) ? 1 : -1;
+  transition(to, mode, dir);
+}
+const step = n => goTo((index + n + COURSES.length) % COURSES.length, 'manual');
+
+function setPlaying(on) {
+  playing = on;
+  $('icoPlay').style.display = on ? 'none' : 'block';
+  $('icoPause').style.display = on ? 'block' : 'none';
+  $('toggle').setAttribute('aria-label',
+    on ? 'Metti in pausa lo scorrimento automatico' : 'Riprendi lo scorrimento automatico');
+  on ? startDwell() : (stopDwell(), bumpIdle());
+}
+
+/* ---------- pannello orari ---------- */
+// inert sul resto della pagina: senza, con Tab il focus scivolava sui
+// pallini dietro l'overlay mentre la modale era aperta
+const BEHIND = ['.header','.stage','.controls','.footer'].map(s => document.querySelector(s));
+let lastFocus = null;
+
+function openSheet(i) {
+  sheetOpen = true; stopDwell(); bumpIdle();
+  const c = COURSES[i];
+  $('sheetTag').textContent = c.tag;
+  $('sheetTitle').textContent = c.title;
+  $('sheetRows').innerHTML = Object.entries(c.hours)
+    .map(([k,v]) => `<div class="row"><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+  lastFocus = document.activeElement;
+  BEHIND.forEach(el => el && el.setAttribute('inert',''));
+  sheet.classList.add('open');
+  $('sheetClose').focus();
+  if (D()) {
+    gsap.fromTo('.sheet-card', { y:44, scale:.96, autoAlpha:0 },
+      { y:0, scale:1, autoAlpha:1, duration:.45, ease:'back.out(1.4)' });
+    gsap.fromTo('.sheet-body .row', { autoAlpha:0, x:-18 },
+      { autoAlpha:1, x:0, duration:.35, stagger:.06, delay:.18, ease:'power2.out' });
+  }
+}
+function closeSheet() {
+  if (!sheetOpen) return;
+  sheetOpen = false;
+  sheet.classList.remove('open');
+  BEHIND.forEach(el => el && el.removeAttribute('inert'));
+  if (lastFocus && lastFocus.isConnected) lastFocus.focus();
+  lastFocus = null;
+  startDwell();
+}
+
+/* ---------- ritorno allo stato di riposo ---------- */
+// Un totem non e' presidiato: chi apre gli orari o mette in pausa e se ne va
+// lascerebbe lo schermo bloccato li' a tempo indeterminato. Dopo IDLE secondi
+// senza tocchi si torna da soli alla prima slide, in riproduzione.
+const IDLE = 60;
+let idleTimer = null;
+
+function attract() {
+  closeSheet();
+  if (!playing) setPlaying(true);
+  if (index !== 0) goTo(0, 'auto');
+}
+function bumpIdle() {
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(attract, IDLE * 1000);
+}
+// solo interazione umana: l'avanzamento automatico non conta come attivita'
+['pointerdown','touchstart','keydown'].forEach(ev =>
+  addEventListener(ev, bumpIdle, { passive:true, capture:true }));
+
+/* ---------- eventi ---------- */
+$('prev').addEventListener('click', () => step(-1));
+$('next').addEventListener('click', () => step(1));
+$('toggle').addEventListener('click', () => setPlaying(!playing));
+$('sheetClose').addEventListener('click', closeSheet);
+sheet.addEventListener('click', e => { if (e.target === sheet) closeSheet(); });
+
+addEventListener('keydown', e => {
+  if (e.key === 'Escape') return closeSheet();
+  if (sheetOpen) return;
+  if (e.key === 'ArrowLeft')  step(-1);
+  if (e.key === 'ArrowRight') step(1);
+  if (e.key === ' ')          { e.preventDefault(); setPlaying(!playing); }
+});
+
+// swipe
+let x0 = null;
+deck.addEventListener('touchstart', e => { x0 = e.changedTouches[0].clientX; }, { passive:true });
+deck.addEventListener('touchend', e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if (Math.abs(dx) > 56) step(dx < 0 ? 1 : -1);
+}, { passive:true });
+
+// niente lavoro a schermo spento o fuori vista
+document.addEventListener('visibilitychange', () => document.hidden ? stopDwell() : startDwell());
+new IntersectionObserver(([e]) => { onscreen = e.isIntersecting; onscreen ? startDwell() : stopDwell(); })
+  .observe(deck);
+reduce.addEventListener('change', () => { stopDwell(); startDwell(); });
+
+startDwell();
+bumpIdle();
+})();
+</script>
+<script>
+/* =====================================================================
+   NATALE: ghirlanda, nevicata e musica. Indipendente dalla galleria:
+   se qualcosa qui fallisce, il totem continua a girare.
+   ===================================================================== */
+(() => {
+'use strict';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+const rnd = (a, b) => a + Math.random() * (b - a);
+const gPx = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--g')) || 30;
+
+/* ---------------- GHIRLANDA ---------------- */
+const garland = document.getElementById('garland');
+const gc = document.getElementById('garlandCanvas');
+
+// percorso rettangolare lungo il centro della fascia, in senso orario
+function perimeter(w, h, g) {
+  const m = g / 2, pts = [];
+  const seg = (x0, y0, x1, y1) => {
+    const len = Math.hypot(x1 - x0, y1 - y0), n = Math.max(1, Math.round(len / 3));
+    for (let i = 0; i < n; i++) pts.push([x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * i / n]);
+  };
+  seg(m, m, w - m, m); seg(w - m, m, w - m, h - m);
+  seg(w - m, h - m, m, h - m); seg(m, h - m, m, m);
+  return pts;
+}
+
+function drawGarland() {
+  const w = innerWidth, h = innerHeight, g = gPx();
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  gc.width = w * dpr; gc.height = h * dpr;
+  const c = gc.getContext('2d');
+  c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  c.clearRect(0, 0, w, h);
+  const pts = perimeter(w, h, g);
+
+  // ombra interna: stacca la cornice dal contenuto
+  c.save();
+  c.shadowColor = 'rgba(0,0,0,.55)'; c.shadowBlur = g * .6;
+  c.strokeStyle = 'rgba(8,30,18,.9)'; c.lineWidth = g * .55;
+  c.strokeRect(g / 2, g / 2, w - g, h - g);
+  c.restore();
+
+  // aghi di abete: tre strati, dal piu' scuro al piu' chiaro
+  const layers = [
+    ['#0b3d22', '#0f4a2a', .62, 5], ['#14572f', '#1b6b3a', .52, 4], ['#2a8048', '#3d9a5a', .38, 2]
+  ];
+  c.lineCap = 'round';
+  for (const [a, b, lenK, per] of layers) {
+    for (let i = 0; i < pts.length; i++) {
+      const [x, y] = pts[i];
+      for (let k = 0; k < per; k++) {
+        const ang = Math.random() * Math.PI * 2, len = g * lenK * rnd(.55, 1);
+        c.strokeStyle = Math.random() < .5 ? a : b;
+        c.lineWidth = rnd(1, 2.1);
+        c.beginPath(); c.moveTo(x + rnd(-2, 2), y + rnd(-2, 2));
+        c.lineTo(x + Math.cos(ang) * len, y + Math.sin(ang) * len); c.stroke();
+      }
+    }
+  }
+  // brina leggera sulle punte
+  c.fillStyle = 'rgba(255,255,255,.55)';
+  for (let i = 0; i < pts.length; i += 2) {
+    if (Math.random() < .35) {
+      const [x, y] = pts[i];
+      c.beginPath(); c.arc(x + rnd(-g * .4, g * .4), y + rnd(-g * .4, g * .4), rnd(.6, 1.4), 0, 7); c.fill();
+    }
+  }
+
+  // palline rosse e oro, a intervalli regolari
+  const step = Math.round(g * 4.6 / 3);   // pts sono a 3px l'uno dall'altro
+  const palette = [['#ff5252', '#b71c1c'], ['#ffe082', '#c79100'], ['#ef5350', '#8e1414'], ['#e0e0e0', '#8d99a6']];
+  for (let i = Math.round(step / 2), n = 0; i < pts.length; i += step, n++) {
+    const [x, y] = pts[i], r = g * rnd(.22, .3);
+    const [hi, lo] = palette[n % palette.length];
+    const gr = c.createRadialGradient(x - r * .35, y - r * .4, r * .1, x, y, r);
+    gr.addColorStop(0, '#fff'); gr.addColorStop(.18, hi); gr.addColorStop(1, lo);
+    c.fillStyle = gr; c.beginPath(); c.arc(x, y, r, 0, 7); c.fill();
+  }
+
+  // lucine (DOM, per l'animazione a costo zero)
+  garland.querySelectorAll('.light,.bow').forEach(el => el.remove());
+  const colors = ['#fff4c2', '#ff6b6b', '#ffd54f', '#7ee787', '#fff4c2', '#82b1ff'];
+  const lstep = Math.round(g * 2.3 / 3);
+  for (let i = 0, n = 0; i < pts.length; i += lstep, n++) {
+    const [x, y] = pts[i], l = document.createElement('i');
+    l.className = 'light';
+    l.style.left = (x + rnd(-g * .18, g * .18)) + 'px';
+    l.style.top = (y + rnd(-g * .18, g * .18)) + 'px';
+    l.style.setProperty('--c', colors[n % colors.length]);
+    l.style.setProperty('--t', rnd(1.4, 3.2).toFixed(2) + 's');
+    l.style.setProperty('--d', (-rnd(0, 3)).toFixed(2) + 's');
+    garland.appendChild(l);
+  }
+
+  // fiocchi in alto: agli angoli e al centro (in basso coprirebbero il footer)
+  const tpl = document.getElementById('bowTpl');
+  [[g * .1, g * -.35], [w - g * 3.1, g * -.35], [w / 2 - g * 1.5, g * -.45]]
+    .forEach(([x, y]) => {
+      const b = tpl.content.firstElementChild.cloneNode(true);
+      b.classList.add('bow');
+      b.style.left = x + 'px'; b.style.top = y + 'px';
+      garland.appendChild(b);
+    });
+}
+let rz;
+addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { drawGarland(); sizeSnow(); }, 150); });
+drawGarland();
+
+/* ---------------- NEVICATA ---------------- */
+// "Ogni tanto": episodi di ~25 s ogni 40-80 s, con entrata e uscita graduali.
+// Il primo parte dopo pochi secondi, cosi' chi passa davanti lo vede subito.
+const SNOW_FIRST = 6, SNOW_LEN = 25, SNOW_GAP = [40, 80];
+const sc = document.getElementById('snow'), sx = sc.getContext('2d');
+let flakes = [], snowing = false, snowT0 = 0, raf = null, last = 0, W = 0, H = 0;
+
+function sizeSnow() {
+  W = innerWidth; H = innerHeight;
+  // risoluzione 1:1 anche su schermi densi: la neve e' morbida, non serve di piu'
+  sc.width = W; sc.height = H;
+}
+sizeSnow();
+
+function flake(top) {
+  const z = Math.random();                 // profondita': vicini = grandi e veloci
+  return { x: rnd(0, W), y: top ? rnd(-H * .15, -10) : rnd(-H * .2, H), r: 1.2 + z * z * 4.2,
+           vy: 30 + z * 70, sway: rnd(.4, 1.4), ph: rnd(0, 6.3), a: .45 + z * .5 };
+}
+
+function startSnow() {
+  if (reduce.matches || document.hidden) return scheduleSnow();
+  snowing = true; snowT0 = performance.now();
+  const n = Math.round(W * H / 9000);      // ~230 fiocchi su un 1080x1920
+  flakes = Array.from({ length: n }, () => flake(false));
+  last = performance.now();
+  if (!raf) raf = requestAnimationFrame(frame);
+}
+function scheduleSnow(first) {
+  setTimeout(startSnow, (first ? SNOW_FIRST : rnd(SNOW_GAP[0], SNOW_GAP[1])) * 1000);
+}
+
+function frame(now) {
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  const t = (now - snowT0) / 1000;
+  // intensita': 0 -> 1 nei primi 4 s, 1 -> 0 negli ultimi 5 s
+  const k = Math.max(0, Math.min(1, t / 4, (SNOW_LEN - t) / 5));
+  sx.clearRect(0, 0, W, H);
+  sx.fillStyle = '#fff';
+  let alive = 0;
+  for (const f of flakes) {
+    f.y += f.vy * dt; f.ph += dt * f.sway;
+    f.x += Math.sin(f.ph) * 22 * dt;
+    if (f.y > H + 10) {
+      if (t < SNOW_LEN - 5) Object.assign(f, flake(true));   // ricicla finche' nevica
+      else continue;                                         // poi lascia cadere gli ultimi
+    }
+    alive++;
+    sx.globalAlpha = f.a * Math.max(k, t > SNOW_LEN - 5 ? .35 : 0);
+    sx.beginPath(); sx.arc(f.x, f.y, f.r, 0, 7); sx.fill();
+  }
+  sx.globalAlpha = 1;
+  if (t > SNOW_LEN && (!alive || t > SNOW_LEN + 12)) {
+    snowing = false; raf = null; flakes = [];
+    sx.clearRect(0, 0, W, H);
+    return scheduleSnow();
+  }
+  raf = requestAnimationFrame(frame);
+}
+scheduleSnow(true);
+
+/* ---------------- MUSICA ---------------- */
+// Per usare registrazioni vere basta copiare dei file in natale/musica/ e
+// elencarli qui: suonano in ciclo al posto del carillon sintetizzato.
+// Usare SOLO brani di cui si hanno i diritti (o di pubblico dominio anche
+// nell'esecuzione): la diffusione in un locale aperto al pubblico e'
+// soggetta a SIAE/SCF. Le melodie sotto sono tradizionali di pubblico dominio
+// e il suono e' generato qui, quindi non c'e' alcuna registrazione di terzi.
+const MUSIC_FILES = [];   // es. ['musica/brano1.mp3', 'musica/brano2.mp3']
+const VOLUME = .32;
+
+const btn = document.getElementById('music');
+let wantOn = true;
+try { wantOn = localStorage.getItem('sportlandia-natale-musica') !== 'off'; } catch (e) {}
+
+// --- melodie (nota, durata in movimenti). Accordi: radice per battuta. ---
+const SONGS = [
+  { name: 'Jingle Bells', bpm: 168, bells: true,
+    mel: 'D4 1 B4 1 A4 1 G4 1 D4 3 D4 .5 D4 .5 D4 1 B4 1 A4 1 G4 1 E4 4 E4 1 C5 1 B4 1 A4 1 F#4 4 D5 1 D5 1 C5 1 A4 1 B4 4 ' +
+         'D4 1 B4 1 A4 1 G4 1 D4 4 D4 1 B4 1 A4 1 G4 1 E4 3 E4 1 E4 1 C5 1 B4 1 A4 1 D5 1 D5 1 D5 1 D5 1 E5 1 D5 1 C5 1 A4 1 G4 2 D5 2 ' +
+         'B4 1 B4 1 B4 2 B4 1 B4 1 B4 2 B4 1 D5 1 G4 1.5 A4 .5 B4 4 C5 1 C5 1 C5 1.5 C5 .5 C5 1 B4 1 B4 1 B4 .5 B4 .5 B4 1 A4 1 A4 1 B4 1 A4 2 D5 2 ' +
+         'B4 1 B4 1 B4 2 B4 1 B4 1 B4 2 B4 1 D5 1 G4 1.5 A4 .5 B4 4 C5 1 C5 1 C5 1 C5 1 C5 1 B4 1 B4 1 B4 .5 B4 .5 D5 1 D5 1 C5 1 A4 1 G4 4',
+    bass: 'G2 4 G2 4 G2 4 C3 4 C3 4 D3 4 D3 4 G2 4 G2 4 G2 4 G2 4 C3 4 C3 4 D3 4 D3 4 G2 4 ' +
+          'G2 4 G2 4 G2 4 G2 4 C3 4 G2 4 D3 4 D3 4 G2 4 G2 4 G2 4 G2 4 C3 4 G2 4 D3 4 G2 4' },
+  { name: 'We Wish You a Merry Christmas', bpm: 150,
+    mel: 'D4 1 G4 1 G4 .5 A4 .5 G4 .5 F#4 .5 E4 1 E4 1 E4 1 A4 1 A4 .5 B4 .5 A4 .5 G4 .5 F#4 1 D4 1 D4 1 ' +
+         'B4 1 B4 .5 C5 .5 B4 .5 A4 .5 G4 1 E4 1 D4 .5 D4 .5 E4 1 A4 1 F#4 1 G4 2 D4 1 ' +
+         'G4 1 G4 1 G4 1 F#4 2 F#4 1 G4 1 F#4 1 E4 1 D4 2 A4 1 B4 1 A4 .5 A4 .5 G4 .5 G4 .5 D5 1 D4 1 D4 .5 D4 .5 E4 1 A4 1 F#4 1 G4 3',
+    bass: 'R 1 G2 3 C3 3 A2 3 D3 3 B2 3 E3 3 C3 1 D3 2 G2 3 G2 3 D3 3 E3 3 D3 3 G2 3 D3 3 C3 1 D3 2 G2 3' },
+  { name: 'Silent Night', bpm: 132,
+    mel: 'G4 1.5 A4 .5 G4 1 E4 3 G4 1.5 A4 .5 G4 1 E4 3 D5 2 D5 1 B4 3 C5 2 C5 1 G4 3 ' +
+         'A4 2 A4 1 C5 1.5 B4 .5 A4 1 G4 1.5 A4 .5 G4 1 E4 3 A4 2 A4 1 C5 1.5 B4 .5 A4 1 G4 1.5 A4 .5 G4 1 E4 3 ' +
+         'D5 2 D5 1 F5 1.5 D5 .5 B4 1 C5 3 E5 3 C5 1.5 G4 .5 E4 1 G4 1.5 F4 .5 D4 1 C4 6',
+    bass: 'C3 6 C3 6 G2 6 C3 6 F2 6 C3 6 F2 6 C3 6 G2 6 C3 6 C3 3 G2 3 C3 6' },
+  { name: 'Deck the Halls', bpm: 152,
+    mel: 'D5 1.5 C5 .5 B4 1 A4 1 G4 1 A4 1 B4 1 G4 1 A4 .5 B4 .5 C5 .5 A4 .5 B4 1.5 A4 .5 G4 1 F#4 1 G4 2 ' +
+         'D5 1.5 C5 .5 B4 1 A4 1 G4 1 A4 1 B4 1 G4 1 A4 .5 B4 .5 C5 .5 A4 .5 B4 1.5 A4 .5 G4 1 F#4 1 G4 2 ' +
+         'A4 1.5 B4 .5 C5 1 A4 1 B4 1.5 C5 .5 D5 1 A4 1 B4 .5 C#5 .5 D5 1 E5 .5 F#5 .5 G5 1 F#5 1 E5 1 D5 2 ' +
+         'D5 1.5 C5 .5 B4 1 A4 1 G4 1 A4 1 B4 1 G4 1 E5 .5 E5 .5 E5 .5 E5 .5 D5 1.5 C5 .5 B4 1 A4 1 G4 2',
+    bass: 'G2 4 G2 4 D3 2 G2 2 C3 1 D3 1 G2 2 G2 4 G2 4 D3 2 G2 2 C3 1 D3 1 G2 2 ' +
+          'D3 4 G2 2 D3 2 D3 4 A2 2 D3 2 G2 4 G2 4 C3 2 G2 2 D3 2 G2 2' }
+];
+const NOTE = { C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5, 'F#': 6, G: 7, 'G#': 8, A: 9, 'A#': 10, B: 11 };
+const hz = n => { const m = n.match(/^([A-G]#?)(\d)$/); return 440 * Math.pow(2, (NOTE[m[1]] + (+m[2] + 1) * 12 - 69) / 12); };
+const parse = str => { const a = str.trim().split(/\s+/), out = []; for (let i = 0; i < a.length; i += 2) out.push([a[i], +a[i + 1]]); return out; };
+SONGS.forEach(s => { s.mel = parse(s.mel); s.bass = parse(s.bass); });
+
+let ctx = null, master = null, verb = null, timer = null, songIdx = 0, nextTime = 0, queue = [];
+
+function setupAudio() {
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return false;
+  ctx = new AC();
+  master = ctx.createGain(); master.gain.value = 0;
+  // riverbero sintetico: rumore che decade, un po' di "salone"
+  verb = ctx.createConvolver();
+  const len = ctx.sampleRate * 2.2, ir = ctx.createBuffer(2, len, ctx.sampleRate);
+  for (let ch = 0; ch < 2; ch++) {
+    const d = ir.getChannelData(ch);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+  }
+  verb.buffer = ir;
+  const wet = ctx.createGain(); wet.gain.value = .35;
+  verb.connect(wet); wet.connect(master);
+  master.connect(ctx.destination);
+  return true;
+}
+
+// carillon: fondamentale + armoniche inarmoniche brevi, decadimento lungo
+function bell(f, t, dur, vel) {
+  const out = ctx.createGain(); out.connect(master); out.connect(verb);
+  out.gain.setValueAtTime(0, t);
+  out.gain.linearRampToValueAtTime(vel, t + .008);
+  out.gain.exponentialRampToValueAtTime(.0008, t + Math.max(1.2, dur * 1.6));
+  [[1, 1], [2, .35], [3.01, .12], [4.2, .06]].forEach(([m, g]) => {
+    const o = ctx.createOscillator(), og = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = f * m; og.gain.value = g;
+    o.connect(og); og.connect(out); o.start(t); o.stop(t + Math.max(1.3, dur * 1.7));
+  });
+}
+function bassNote(f, t, dur) {
+  const o = ctx.createOscillator(), g = ctx.createGain(), lp = ctx.createBiquadFilter();
+  o.type = 'triangle'; o.frequency.value = f;
+  lp.type = 'lowpass'; lp.frequency.value = 600;
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.16, t + .03);
+  g.gain.setTargetAtTime(.07, t + .05, .3); g.gain.setTargetAtTime(0, t + dur - .05, .06);
+  o.connect(lp); lp.connect(g); g.connect(master); g.connect(verb);
+  o.start(t); o.stop(t + dur + .4);
+  // quinta morbida sopra: armonia piena senza rischiare terze sbagliate
+  const o2 = ctx.createOscillator(), g2 = ctx.createGain();
+  o2.type = 'sine'; o2.frequency.value = f * 3; g2.gain.setValueAtTime(0, t);
+  g2.gain.linearRampToValueAtTime(.035, t + .2); g2.gain.setTargetAtTime(0, t + dur - .1, .1);
+  o2.connect(g2); g2.connect(master); g2.connect(verb); o2.start(t); o2.stop(t + dur + .4);
+}
+let noiseBuf = null;
+function sleigh(t) {
+  if (!noiseBuf) {
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate * .2, ctx.sampleRate);
+    const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  const s = ctx.createBufferSource(), hp = ctx.createBiquadFilter(), g = ctx.createGain();
+  s.buffer = noiseBuf; hp.type = 'highpass'; hp.frequency.value = 7000;
+  g.gain.setValueAtTime(.05, t); g.gain.exponentialRampToValueAtTime(.001, t + .14);
+  s.connect(hp); hp.connect(g); g.connect(master); s.start(t);
+}
+
+function queueSong(start) {
+  const s = SONGS[songIdx % SONGS.length], beat = 60 / s.bpm;
+  let t = start;
+  for (const [n, d] of s.mel) { if (n !== 'R') queue.push(['m', t, hz(n), d * beat]); t += d * beat; }
+  const end = t; t = start;
+  for (const [n, d] of s.bass) { if (n !== 'R') queue.push(['b', t, hz(n), d * beat]); t += d * beat; }
+  if (s.bells) for (let b = start; b < end; b += beat) queue.push(['s', b]);
+  queue.sort((a, b) => a[1] - b[1]);
+  songIdx++;
+  return end + 2.5;                       // pausa tra un brano e l'altro
+}
+
+// schedulatore con anticipo: robusto anche se il main thread ha un singhiozzo
+function tick() {
+  if (!queue.length) nextTime = queueSong(Math.max(nextTime, ctx.currentTime + .1));
+  const horizon = ctx.currentTime + .4;
+  while (queue.length && queue[0][1] < horizon) {
+    const [k, t, f, d] = queue.shift();
+    if (t < ctx.currentTime - .05) continue;
+    if (k === 'm') bell(f, t, d, .22); else if (k === 'b') bassNote(f, t, d); else sleigh(t);
+  }
+}
+
+// --- riproduzione da file, se configurata ---
+let audioEl = null, fileIdx = 0, useFiles = MUSIC_FILES.length > 0;
+function playFile() {
+  if (!audioEl) {
+    audioEl = new Audio(); audioEl.volume = VOLUME;
+    audioEl.addEventListener('ended', () => { fileIdx++; playFile(); });
+    audioEl.addEventListener('error', () => { useFiles = false; audioEl = null; if (wantOn) start(); });
+  }
+  audioEl.src = MUSIC_FILES[fileIdx % MUSIC_FILES.length];
+  return audioEl.play();
+}
+
+let running = false;
+function start() {
+  if (useFiles) {
+    const p = playFile();
+    if (p && p.then) p.then(() => { running = true; }, () => { running = false; });
+    return;
+  }
+  if (!ctx && !setupAudio()) return;
+  const go = () => {
+    running = ctx.state === 'running';
+    if (!running) return;
+    master.gain.cancelScheduledValues(ctx.currentTime);
+    master.gain.setTargetAtTime(VOLUME, ctx.currentTime, .6);   // entrata dolce
+    if (!timer) { nextTime = ctx.currentTime + .2; timer = setInterval(tick, 100); tick(); }
+  };
+  ctx.state === 'running' ? go() : ctx.resume().then(go, () => {});
+}
+function stop() {
+  running = false;
+  if (audioEl) audioEl.pause();
+  if (ctx) {
+    master.gain.setTargetAtTime(0, ctx.currentTime, .25);
+    setTimeout(() => {
+      if (wantOn) return;
+      clearInterval(timer); timer = null; queue = []; ctx.suspend();
+    }, 900);
+  }
+}
+
+function paintBtn() {
+  btn.classList.toggle('is-muted', !wantOn);
+  btn.setAttribute('aria-pressed', wantOn ? 'true' : 'false');
+  btn.setAttribute('aria-label', wantOn ? 'Disattiva la musica di Natale' : 'Attiva la musica di Natale');
+  document.getElementById('icoSound').style.display = wantOn ? 'block' : 'none';
+  document.getElementById('icoMute').style.display = wantOn ? 'none' : 'block';
+}
+btn.addEventListener('click', e => {
+  e.stopPropagation();
+  // musica voluta ma bloccata dal browser: il primo tocco qui la avvia
+  if (wantOn && !running) return start();
+  wantOn = !wantOn;
+  try { localStorage.setItem('sportlandia-natale-musica', wantOn ? 'on' : 'off'); } catch (err) {}
+  paintBtn(); wantOn ? start() : stop();
+});
+
+// I browser avviano l'audio solo dopo un gesto: si prova subito (un totem in
+// modalita' kiosk con --autoplay-policy=no-user-gesture-required parte da
+// solo), altrimenti al primo tocco su qualunque punto dello schermo.
+function kick(e) { if (wantOn && !running && !btn.contains(e.target)) start(); }
+['pointerdown', 'touchend', 'keydown'].forEach(ev => addEventListener(ev, kick, { capture: true, passive: true }));
+paintBtn();
+if (wantOn) start();
+})();
+</script>
+</body>
+</html>

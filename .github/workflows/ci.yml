@@ -20,7 +20,7 @@ jobs:
       - name: HTMLHint
         run: |
           npm install -g htmlhint@1.1.4
-          htmlhint --config .htmlhintrc index.html
+          htmlhint --config .htmlhintrc index.html natale/index.html
 
       # Il totem gira in sede senza rete garantita: se GSAP sparisce dal
       # repository la galleria non parte e lo schermo resta su una slide.
@@ -55,3 +55,14 @@ jobs:
             echo "::error::$righe righe: sembra la versione pre-v2. Ripristina da backup/totem-funzionante."
             exit 1
           fi
+
+      # Versione di Natale (natale/): usa le stesse immagini e lo stesso GSAP
+      # della radice, con percorsi ../ — se ne sparisce uno, la copia si rompe.
+      - name: Versione di Natale
+        run: |
+          grep -q '../vendor/gsap.min.js' natale/index.html
+          mancanti=0
+          for f in $(grep -oE "\.\./images/[a-z0-9-]+\.webp" natale/index.html | sort -u); do
+            [ -s "natale/$f" ] && echo "  ok      $f" || { echo "  MANCA   $f"; mancanti=$((mancanti+1)); }
+          done
+          [ "$mancanti" -eq 0 ] || { echo "::error::$mancanti immagini mancanti in natale/"; exit 1; }

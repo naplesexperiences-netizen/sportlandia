@@ -35,6 +35,39 @@
 > righe contro ~1400). Se diventa rossa, **non forzare**: è esattamente il
 > controllo che mancava quando il totem si è rotto.
 
+## 🎄 Versione di Natale — `natale/`
+
+Copia del totem con tema natalizio, **separata dall'originale**: la radice
+(`index.html`) resta identica a prima.
+
+- **Indirizzo** (dopo il merge su `main`):
+  https://naplesexperiences-netizen.github.io/sportlandia/natale/
+- **Ghirlanda-cornice** di abete attorno allo schermo, con palline, fiocchi
+  rossi e lucine che brillano. Disegnata una volta su canvas, non pesa.
+- **Nevicata in sovraimpressione** a episodi: la prima dopo ~6 s, poi una
+  ogni 40–80 s per ~25 s, con entrata e uscita graduali. Resta sotto il
+  popup orari, che rimane leggibile.
+- **Musica di Natale** in sottofondo: carillon generato dal browser (nessun
+  file, funziona offline) su quattro melodie tradizionali di pubblico
+  dominio — Jingle Bells, We Wish You a Merry Christmas, Astro del Ciel,
+  Deck the Halls. Pulsante ♫ nei controlli per spegnerla/riaccenderla.
+- Accenti oro e rosso al posto del ciano; “Buone Feste” nell'intestazione.
+- Usa le stesse immagini e lo stesso GSAP della radice (`../images`,
+  `../vendor`): nessun file duplicato.
+
+**Audio sul totem.** I browser fanno partire l'audio solo dopo un tocco. Per
+farlo partire da solo all'accensione, avviare Chrome in kiosk con
+`--autoplay-policy=no-user-gesture-required`; altrimenti parte al primo tocco
+sullo schermo.
+
+**Registrazioni vere al posto del carillon.** Copiare gli mp3 in
+`natale/musica/` ed elencarli in `MUSIC_FILES` dentro `natale/index.html`.
+Solo brani con diritti in regola: la musica diffusa in un locale aperto al
+pubblico è soggetta a SIAE/SCF.
+
+**Per tornare alla versione normale** basta puntare il totem di nuovo sulla
+radice: non c'è nulla da annullare.
+
 ## 📱 Descrizione
 
 Sito web interattivo verticale (portrait) ottimizzato per schermi touch screen 42" HD presso Sportlandia, centro fitness a Castellammare di Stabia.
