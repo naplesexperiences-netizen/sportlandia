@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="Sportlandia Infitness - Centro Fitness Castellammare di Stabia. Sala attrezzi, Pilates, Les Mills e molto altro.">
-<meta name="theme-color" content="#062c5c">
+<meta name="theme-color" content="#0b2a1c">
 <!-- Demo per cliente: non deve finire nei motori di ricerca -->
 <meta name="robots" content="noindex,nofollow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="SPORTLANDIA INFITNESS - Corsi e Attività">
 <meta property="og:description" content="Sportlandia Infitness - Centro Fitness Castellammare di Stabia. Sala attrezzi, Pilates, MET, Les Mills, Fisiorehab e molto altro.">
 <meta property="og:site_name" content="Experiences Srl">
-<title translate="no">SPORTLANDIA INFITNESS — Totem Corsi</title>
+<title translate="no">SPORTLANDIA INFITNESS — Totem di Natale</title>
 <link rel="icon" href="images/logo.webp" type="image/webp">
 
 <!-- Font non bloccante: su un totem senza rete un <link> normale ritarda il
@@ -28,8 +28,12 @@
   --navy:#062c5c;
   --cobalt:#0d47a1;
   --blue:#1976d2;
-  --cyan:#00bcd4;
-  --cyan-soft:#4dd0e1;
+  /* Versione di Natale: gli accenti ciano diventano oro. I nomi delle
+     variabili restano quelli dell'originale, cosi' le regole non cambiano. */
+  --cyan:#f2c14e;
+  --cyan-soft:#ffe08a;
+  --xmas-red:#c62828;
+  --xmas-red-deep:#8e1414;
   --ink:#0a1c33;
   --paper:#ffffff;
 
@@ -68,8 +72,9 @@
   --space-10:calc(var(--space-unit) * 18);
 
   /* Altezze delle fasce fisse: le locandine si adattano a queste */
-  --chrome-top:198px;
-  --chrome-bottom:252px;
+  --g:30px;                    /* spessore della ghirlanda-cornice */
+  --chrome-top:228px;
+  --chrome-bottom:282px;
   --footer-h:78px;
 
   --btn:58px;                  /* pulsanti e contatore: stessa altezza */
@@ -92,7 +97,7 @@ body{
 
 /* Sfondo ambientale: resta dietro alle locandine in formato 3:4 */
 .ambient{position:fixed;inset:0;z-index:0;background:
-  radial-gradient(120% 60% at 50% 0%,rgba(0,188,212,.20),transparent 60%),
+  radial-gradient(120% 60% at 50% 0%,rgba(242,193,78,.20),transparent 60%),
   linear-gradient(180deg,#04213f 0%,var(--navy) 40%,var(--cobalt) 100%);}
 .ambient::after{content:'';position:absolute;inset:0;opacity:.5;
   background:radial-gradient(60% 40% at 50% 100%,rgba(25,118,210,.5),transparent 70%);}
@@ -107,7 +112,7 @@ body{
   position:fixed;top:0;left:0;right:0;z-index:30;
   /* viewport-fit=cover e' dichiarato: senza env() il contenuto finirebbe
      sotto notch e barre di sistema quando non e' su un totem a cornice piena */
-  padding:calc(var(--space-6) + env(safe-area-inset-top)) calc(var(--space-7) + env(safe-area-inset-right)) var(--space-9)
+  padding:calc(var(--space-6) + var(--g) + env(safe-area-inset-top)) calc(var(--space-7) + env(safe-area-inset-right)) var(--space-9)
           calc(var(--space-7) + env(safe-area-inset-left));
   text-align:center;pointer-events:none;
   background:linear-gradient(180deg,rgba(4,27,52,.94) 0%,rgba(6,44,92,.72) 46%,rgba(6,44,92,.18) 82%,transparent 100%);
@@ -116,7 +121,7 @@ body{
 .brand-mark{
   width:74px;height:74px;margin:0 auto var(--space-3);border-radius:50%;
   background:#fff;padding:9px;display:grid;place-items:center;
-  box-shadow:0 10px 28px rgba(0,188,212,.35),0 0 0 1px rgba(255,255,255,.18);
+  box-shadow:0 10px 28px rgba(242,193,78,.35),0 0 0 1px rgba(255,255,255,.18);
 }
 .brand-mark img{width:100%;height:100%;object-fit:contain}
 /* .42em spezzava "Infitness Castellammare" in lettere sciolte: da lontano
@@ -129,7 +134,7 @@ body{
 .brand-name{
   font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;
   letter-spacing:var(--tracking-caps);line-height:1;text-indent:var(--tracking-caps);
-  background:linear-gradient(105deg,#fff 0%,#bff0f7 45%,var(--cyan-soft) 100%);
+  background:linear-gradient(105deg,#fff 0%,#fff3cf 45%,var(--cyan-soft) 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
 .brand-tag{
@@ -179,14 +184,14 @@ body{
 
 /* Locandina: mostrata per intero, mai tagliata, dentro la fascia libera */
 .slide[data-kind="poster"] .slide-img{
-  top:var(--chrome-top);bottom:var(--chrome-bottom);
+  top:var(--chrome-top);bottom:var(--chrome-bottom);left:var(--g);right:var(--g);
   background-size:contain;
 }
 /* Alone morbido dietro la locandina, la stacca dal fondo */
 .slide[data-kind="poster"] .slide-media::before{
   content:'';position:absolute;left:0;right:0;
   top:var(--chrome-top);bottom:var(--chrome-bottom);
-  background:radial-gradient(70% 55% at 50% 50%,rgba(0,188,212,.18),transparent 72%);
+  background:radial-gradient(70% 55% at 50% 50%,rgba(242,193,78,.18),transparent 72%);
 }
 
 /* Foto: riempie lo schermo con velatura per leggere il testo */
@@ -207,10 +212,10 @@ body{
 .tag{
   display:inline-flex;align-items:center;gap:var(--space-2);
   padding:var(--space-2) var(--space-5);margin-bottom:var(--space-4);
-  background:var(--cyan);color:#052b38;border-radius:99px;
+  background:linear-gradient(180deg,var(--xmas-red),var(--xmas-red-deep));color:#fff;border-radius:99px;
   font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;
   letter-spacing:var(--tracking-caps);text-transform:uppercase;
-  box-shadow:0 6px 20px rgba(0,188,212,.45);
+  box-shadow:0 6px 20px rgba(198,40,40,.5);
 }
 .slide-title{
   font-family:var(--font-display);font-size:var(--text-3xl);font-weight:700;
@@ -235,7 +240,7 @@ body{
 
 /* ============ CONTROLLI ============ */
 .controls{
-  position:fixed;left:0;right:0;bottom:var(--footer-h,78px);z-index:40;
+  position:fixed;left:0;right:0;bottom:calc(var(--footer-h,78px) + var(--g));z-index:40;
   padding:var(--space-4) calc(var(--space-6) + env(safe-area-inset-right)) var(--space-4) calc(var(--space-6) + env(safe-area-inset-left));
   background:linear-gradient(0deg,rgba(4,27,52,.82) 0%,rgba(6,44,92,.42) 62%,transparent 100%);
   pointer-events:none;
@@ -245,7 +250,7 @@ body{
 .rail{height:4px;border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden;margin-bottom:var(--space-4)}
 .rail-fill{height:100%;width:100%;transform:scaleX(0);transform-origin:left center;
   border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--cyan-soft));
-  box-shadow:0 0 14px rgba(0,188,212,.8)}
+  box-shadow:0 0 14px rgba(242,193,78,.8)}
 
 .dots{display:flex;justify-content:center;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-4)}
 .dot{
@@ -256,7 +261,7 @@ body{
    cambio slide, altrimenti la transizione non ha un elemento su cui animare */
 .dot i{display:block;width:60%;height:5px;border-radius:99px;
   background:rgba(255,255,255,.3);transition:background var(--dur-fast),width var(--dur-fast)}
-.dot.is-on i{width:100%;background:var(--cyan);box-shadow:0 0 12px rgba(0,188,212,.75)}
+.dot.is-on i{width:100%;background:var(--cyan);box-shadow:0 0 12px rgba(242,193,78,.75)}
 
 .nav{display:flex;justify-content:center;align-items:center;gap:var(--space-4)}
 /* --btn tiene pulsanti e contatore esattamente della stessa altezza */
@@ -268,7 +273,7 @@ body{
   color:#fff;transition:background var(--dur-fast),transform var(--dur-fast),border-color var(--dur-fast);
 }
 .btn svg{width:calc(var(--btn) * .45);height:calc(var(--btn) * .45)}
-.btn:hover,.btn:active{background:var(--cyan);border-color:var(--cyan);color:#04222c;transform:scale(1.07)}
+.btn:hover,.btn:active{background:var(--cyan);border-color:var(--cyan);color:#3a2600;transform:scale(1.07)}
 .counter{
   height:var(--btn);min-width:calc(var(--btn) * 1.85);flex-shrink:0;
   /* flex e non grid: con inline-grid "5", "/" e "12" finirebbero su tre righe */
@@ -286,14 +291,14 @@ body{
 
 /* ============ FOOTER ============ */
 .footer{
-  position:fixed;left:0;right:0;bottom:0;z-index:45;
+  position:fixed;left:var(--g);right:var(--g);bottom:var(--g);z-index:45;
   display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
   padding:var(--space-3) calc(var(--space-6) + env(safe-area-inset-right)) calc(var(--space-3) + env(safe-area-inset-bottom))
           calc(var(--space-6) + env(safe-area-inset-left));
   min-height:var(--footer-h);
   background:rgba(4,27,52,.72);
   -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
-  border-top:1px solid rgba(0,188,212,.3);
+  border-top:1px solid rgba(242,193,78,.3);
 }
 .f-name{font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;
   letter-spacing:var(--tracking-wide);color:var(--cyan);text-transform:uppercase}
@@ -312,7 +317,7 @@ body{
 .f-brand{
   flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;
   text-decoration:none;padding:var(--space-2) var(--space-4);border-radius:99px;
-  border:1px solid rgba(0,188,212,.34);background:rgba(0,188,212,.12);
+  border:1px solid rgba(242,193,78,.34);background:rgba(242,193,78,.12);
   transition:background var(--dur-fast),transform var(--dur-fast);
 }
 /* .24em su un corpo da 9px rendeva "POWERED BY" illeggibile a distanza:
@@ -336,7 +341,7 @@ body{
   display:flex;flex-direction:column;box-shadow:0 40px 90px rgba(0,0,0,.6);
 }
 .sheet-head{position:relative;padding:var(--space-7);color:#fff;
-  background:linear-gradient(120deg,var(--cobalt),var(--blue))}
+  background:linear-gradient(120deg,#0f4d2e,#1b6b3f)}
 .sheet-head .tag{margin-bottom:var(--space-3)}
 .sheet-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;line-height:1.05}
 .sheet-close{
@@ -369,7 +374,7 @@ body{
    tutte le regole seguono. Restano solo le misure fisiche dei componenti. */
 @media (min-height:1600px){
   :root{
-    --chrome-top:300px;--chrome-bottom:340px;--footer-h:112px;--btn:86px;
+    --g:48px;--chrome-top:348px;--chrome-bottom:388px;--footer-h:112px;--btn:86px;
     --space-unit:6px;
     --text-xs:1rem;--text-sm:1.25rem;--text-md:1.35rem;--text-lg:1.6rem;
     --text-xl:2.7rem;--text-2xl:3.6rem;--text-3xl:4.2rem;
@@ -387,7 +392,7 @@ body{
 /* ============ Mobile / anteprima ============ */
 @media (max-width:520px){
   :root{
-    --chrome-top:152px;--chrome-bottom:248px;--footer-h:120px;--btn:46px;
+    --g:18px;--chrome-top:170px;--chrome-bottom:266px;--footer-h:120px;--btn:46px;
     --space-unit:3px;
     --text-xs:.62rem;--text-sm:.74rem;--text-md:.86rem;--text-lg:.95rem;
     --text-xl:1.5rem;--text-2xl:1.75rem;--text-3xl:1.9rem;
@@ -407,6 +412,36 @@ body{
   .row dt{min-width:0}
 }
 
+
+/* ================= NATALE ================= */
+/* Ghirlanda-cornice: abete disegnato una volta su canvas (ricalcolato solo al
+   resize), lucine in DOM animate solo in opacita' (costo GPU trascurabile).
+   Sta sopra a tutto, modale compresa, e non intercetta mai i tocchi. */
+.garland{position:fixed;inset:0;z-index:110;pointer-events:none}
+.garland canvas{position:absolute;inset:0;width:100%;height:100%}
+.garland .light{
+  position:absolute;width:calc(var(--g) * .32);height:calc(var(--g) * .42);
+  margin:calc(var(--g) * -.21) 0 0 calc(var(--g) * -.16);
+  border-radius:50% 50% 46% 46%;background:var(--c);
+  box-shadow:0 0 calc(var(--g) * .35) calc(var(--g) * .08) var(--c);
+  animation:twinkle var(--t,2.4s) ease-in-out var(--d,0s) infinite alternate;
+}
+@keyframes twinkle{0%{opacity:1}55%{opacity:.85}100%{opacity:.25}}
+.garland .bow{position:absolute;width:calc(var(--g) * 3);height:calc(var(--g) * 2.2);
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+
+/* Nevicata in sovraimpressione: sopra slide e controlli, sotto la modale
+   (gli orari devono restare leggibili). Il canvas e' vuoto tra un episodio
+   e l'altro e in quel tempo il ciclo di disegno e' fermo. */
+.snow{position:fixed;inset:0;z-index:95;pointer-events:none;width:100%;height:100%}
+
+/* Pulsante musica: stesso stile dei pulsanti di navigazione */
+.btn.is-muted{opacity:.6}
+
+@media (prefers-reduced-motion:reduce){
+  .garland .light{animation:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}
 }
@@ -418,7 +453,7 @@ body{
 
 <header class="header">
   <div class="brand-mark"><img src="images/logo.webp" alt="" width="74" height="74"></div>
-  <p class="brand-kicker">Infitness Castellammare</p>
+  <p class="brand-kicker">Buone Feste da Infitness Castellammare</p>
   <h1 class="brand-name" translate="no">SPORTLANDIA</h1>
   <p class="brand-tag">Rendi il tuo corpo sano e in forma</p>
 </header>
@@ -441,6 +476,10 @@ body{
     </button>
     <button class="btn" id="next" type="button" aria-label="Corso successivo">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+    <button class="btn" id="music" type="button" aria-label="Disattiva la musica di Natale" aria-pressed="true">
+      <svg id="icoSound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <svg id="icoMute" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M3 3l18 18"/></svg>
     </button>
   </div>
 </div>
@@ -479,6 +518,10 @@ body{
     </div>
   </div>
 </div>
+
+<canvas class="snow" id="snow" aria-hidden="true"></canvas>
+<div class="garland" id="garland" aria-hidden="true"><canvas id="garlandCanvas"></canvas></div>
+<template id="bowTpl"><svg viewBox="0 0 120 88" aria-hidden="true"><defs><linearGradient id="bowG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e53935"/><stop offset="1" stop-color="#8e1414"/></linearGradient></defs><path d="M60 40C44 18 14 6 8 20c-6 15 12 34 52 22Z" fill="url(#bowG)"/><path d="M60 40C76 18 106 6 112 20c6 15-12 34-52 22Z" fill="url(#bowG)"/><path d="M56 44 34 84l12-4 8 8 6-40Zm8 0 22 40-12-4-8 8-6-40Z" fill="url(#bowG)"/><circle cx="60" cy="42" r="9" fill="#b71c1c"/><path d="M20 20c10-4 24 4 34 16M100 20c-10-4-24 4-34 16" stroke="#ff8a80" stroke-width="2.5" fill="none" opacity=".7"/></svg></template>
 
 <p class="sr-only" aria-live="polite" id="live"></p>
 
@@ -771,5 +814,7 @@ startDwell();
 bumpIdle();
 })();
 </script>
+<!-- Natale: ghirlanda, neve e musica. File a parte: se manca, il totem gira lo stesso -->
+<script src="natale.js"></script>
 </body>
 </html>
