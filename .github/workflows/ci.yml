@@ -20,7 +20,7 @@ jobs:
       - name: HTMLHint
         run: |
           npm install -g htmlhint@1.1.4
-          htmlhint --config .htmlhintrc index.html
+          htmlhint --config .htmlhintrc index.html originale/index.html
 
       # Il totem gira in sede senza rete garantita: se GSAP sparisce dal
       # repository la galleria non parte e lo schermo resta su una slide.
@@ -55,3 +55,21 @@ jobs:
             echo "::error::$righe righe: sembra la versione pre-v2. Ripristina da backup/totem-funzionante."
             exit 1
           fi
+
+      # Natale: ghirlanda, neve e musica stanno in natale.js. Se il file
+      # sparisce la galleria gira lo stesso, ma senza decorazioni.
+      - name: Script di Natale presente
+        run: |
+          test -s natale.js
+          grep -q 'src="natale.js"' index.html
+
+      # Versione normale salvata in originale/: usa le stesse immagini e lo
+      # stesso GSAP della radice con percorsi ../, deve restare ripristinabile.
+      - name: Versione originale salvata
+        run: |
+          grep -q '../vendor/gsap.min.js' originale/index.html
+          mancanti=0
+          for f in $(grep -oE "\.\./images/[a-z0-9-]+\.webp" originale/index.html | sort -u); do
+            [ -s "originale/$f" ] && echo "  ok      $f" || { echo "  MANCA   $f"; mancanti=$((mancanti+1)); }
+          done
+          [ "$mancanti" -eq 0 ] || { echo "::error::$mancanti immagini mancanti in originale/"; exit 1; }

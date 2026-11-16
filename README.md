@@ -35,6 +35,40 @@
 > righe contro ~1400). Se diventa rossa, **non forzare**: è esattamente il
 > controllo che mancava quando il totem si è rotto.
 
+## 🎄 In onda: versione di Natale
+
+Dal novembre 2026 la radice (`index.html`) è la **versione natalizia**. La
+versione normale è salvata, identica, in **`originale/`**.
+
+- **Ghirlanda-cornice** di abete attorno allo schermo, con palline, fiocchi
+  rossi e lucine che brillano.
+- **Nevicata in sovraimpressione** a episodi: la prima dopo ~6 s, poi una
+  ogni 40–80 s per ~25 s. Resta sotto il popup orari.
+- **Musica di Natale**: carillon generato dal browser (nessun file, funziona
+  offline) su melodie tradizionali di pubblico dominio — Jingle Bells, We
+  Wish You a Merry Christmas, Astro del Ciel, Deck the Halls. Pulsante ♫ nei
+  controlli per spegnerla/riaccenderla.
+- Accenti oro e rosso al posto del ciano; “Buone Feste” nell'intestazione.
+- Ghirlanda, neve e musica stanno in `natale.js`: se si rompe, la galleria
+  continua a girare.
+
+**Audio sul totem.** I browser fanno partire l'audio solo dopo un tocco. Per
+farlo partire da solo all'accensione, avviare Chrome in kiosk con
+`--autoplay-policy=no-user-gesture-required`; altrimenti parte al primo tocco.
+
+**Registrazioni vere al posto del carillon.** Copiare gli mp3 in `musica/` ed
+elencarli in `MUSIC_FILES` dentro `natale.js`. Solo brani con diritti in
+regola: la musica diffusa in un locale aperto al pubblico è soggetta a SIAE/SCF.
+
+**Finite le feste — tornare alla versione normale:**
+```
+git checkout -b fine-natale origin/main
+sed 's#"\.\./images/#"images/#g; s#"\.\./vendor/#"vendor/#g' originale/index.html > index.html
+git rm natale.js && git commit -am "Fine Natale: torna la versione normale"
+```
+(oppure ripristinare da `backup/totem-funzionante`, che è la versione normale).
+Nel frattempo la versione normale resta visibile su `/sportlandia/originale/`.
+
 ## 📱 Descrizione
 
 Sito web interattivo verticale (portrait) ottimizzato per schermi touch screen 42" HD presso Sportlandia, centro fitness a Castellammare di Stabia.
