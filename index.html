@@ -413,6 +413,21 @@ body{
 }
 
 
+/* ============ SFONDO: FUOCO DEL CAMINO (fuoco.js) ============ */
+/* Senza WebGL la classe has-fire non arriva e resta lo sfondo originale */
+.ambient .fire{position:absolute;inset:0;width:100%;height:100%;display:block}
+.has-fire .ambient{background:#120502}
+.has-fire .ambient::after{display:none}
+/* le fasce in alto e in basso diventano piu' leggere e calde: altrimenti
+   coprirebbero proprio le zone in cui il fuoco si vede */
+.has-fire .header{background:linear-gradient(180deg,rgba(18,5,2,.78) 0%,rgba(18,5,2,.42) 55%,transparent 100%);
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+.has-fire .controls{background:linear-gradient(0deg,rgba(18,5,2,.72) 0%,rgba(18,5,2,.45) 62%,rgba(18,5,2,.1) 100%)}
+.has-fire .dot i{background:rgba(255,255,255,.45)}
+.has-fire .footer{background:rgba(18,6,3,.72)}
+.has-fire .slide[data-kind="poster"] .slide-media::before{
+  background:radial-gradient(70% 55% at 50% 50%,rgba(255,140,40,.22),transparent 72%)}
+
 /* ================= NATALE ================= */
 /* Ghirlanda-cornice: abete disegnato una volta su canvas (ricalcolato solo al
    resize), lucine in DOM animate solo in opacita' (costo GPU trascurabile).
@@ -816,5 +831,7 @@ bumpIdle();
 </script>
 <!-- Natale: ghirlanda, neve e musica. File a parte: se manca, il totem gira lo stesso -->
 <script src="natale.js"></script>
+<!-- Sfondo animato del camino. File a parte: se manca, resta lo sfondo normale -->
+<script src="fuoco.js"></script>
 </body>
 </html>

@@ -49,6 +49,10 @@ versione normale è salvata, identica, in **`originale/`**.
   Wish You a Merry Christmas, Astro del Ciel, Deck the Halls. Pulsante ♫ nei
   controlli per spegnerla/riaccenderla.
 - Accenti oro e rosso al posto del ciano; “Buone Feste” nell'intestazione.
+- **Sfondo con fuoco del camino** (`fuoco.js`): fiamme, brace e faville
+  generate in WebGL, a 1/3 della risoluzione e max 30 fps. Niente video da
+  scaricare né diritti. Senza WebGL resta lo sfondo statico. Per toglierlo
+  basta cancellare la riga `<script src="fuoco.js">` da `index.html`.
 - Ghirlanda, neve e musica stanno in `natale.js`: se si rompe, la galleria
   continua a girare.
 
