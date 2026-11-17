@@ -49,6 +49,10 @@ versione normale è salvata, identica, in **`originale/`**.
   Wish You a Merry Christmas, Astro del Ciel, Deck the Halls. Pulsante ♫ nei
   controlli per spegnerla/riaccenderla.
 - Accenti oro e rosso al posto del ciano; “Buone Feste” nell'intestazione.
+- **Sfondo con video del camino** (`video/camino.mp4`, 1,6 MB, 720×1280,
+  ~9,5 s in ciclo con dissolvenza sulla giunzione, senza audio). Se non
+  carica resta il fotogramma fisso `video/camino.webp`. Per toglierlo basta
+  cancellare il blocco `<video class="fire">` da `index.html`.
 - Ghirlanda, neve e musica stanno in `natale.js`: se si rompe, la galleria
   continua a girare.
 

@@ -63,6 +63,14 @@ jobs:
           test -s natale.js
           grep -q 'src="natale.js"' index.html
 
+      # Sfondo del camino: un <video> o un'immagine mancanti non danno errore,
+      # lo sfondo resta semplicemente nero.
+      - name: Video del camino presente
+        run: |
+          test -s video/camino.mp4
+          test -s video/camino.webp
+          grep -q 'video/camino.mp4' index.html
+
       # Versione normale salvata in originale/: usa le stesse immagini e lo
       # stesso GSAP della radice con percorsi ../, deve restare ripristinabile.
       - name: Versione originale salvata
