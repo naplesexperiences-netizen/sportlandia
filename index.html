@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="has-fire">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -413,9 +413,11 @@ body{
 }
 
 
-/* ============ SFONDO: FUOCO DEL CAMINO (fuoco.js) ============ */
-/* Senza WebGL la classe has-fire non arriva e resta lo sfondo originale */
-.ambient .fire{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* ============ SFONDO: VIDEO DEL CAMINO (video/camino.mp4) ============ */
+/* Muto, in ciclo, senza audio nel file: i browser lo avviano da soli.
+   Se il video non carica resta l'immagine fissa, e sotto il fondo scuro. */
+.ambient .fire{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;
+  background:#120502 url('video/camino.webp') center/cover no-repeat}
 .has-fire .ambient{background:#120502}
 .has-fire .ambient::after{display:none}
 /* le fasce in alto e in basso diventano piu' leggere e calde: altrimenti
@@ -464,7 +466,11 @@ body{
 </head>
 <body>
 
-<div class="ambient" aria-hidden="true"></div>
+<div class="ambient" aria-hidden="true">
+  <video class="fire" id="fire" autoplay muted loop playsinline preload="auto" poster="video/camino.webp" disablepictureinpicture>
+    <source src="video/camino.mp4" type="video/mp4">
+  </video>
+</div>
 
 <header class="header">
   <div class="brand-mark"><img src="images/logo.webp" alt="" width="74" height="74"></div>
@@ -605,6 +611,9 @@ let slides = [], index = 0, dwell = null, flow = null;
 let playing = true, onscreen = true, sheetOpen = false;
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+// con "riduci movimento" il camino resta sull'immagine fissa
+const fire = $('fire');
+if (fire && reduce.matches) { fire.removeAttribute('autoplay'); fire.pause(); }
 const D = () => reduce.matches ? 0 : 1;   // moltiplicatore durate
 
 /* ---------- costruzione ---------- */
@@ -831,7 +840,5 @@ bumpIdle();
 </script>
 <!-- Natale: ghirlanda, neve e musica. File a parte: se manca, il totem gira lo stesso -->
 <script src="natale.js"></script>
-<!-- Sfondo animato del camino. File a parte: se manca, resta lo sfondo normale -->
-<script src="fuoco.js"></script>
 </body>
 </html>
