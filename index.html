@@ -603,6 +603,10 @@ const COURSES = [
 ];
 
 const DWELL = 7;                    // secondi di permanenza per slide
+// Scorrimento automatico: tra una slide e l'altra lo schermo resta per
+// qualche istante solo sul camino. Le slide escono, PAUSA secondi di
+// camino, poi entra la successiva. Il tocco manuale non aspetta.
+const PAUSA = 2.5;
 const $ = id => document.getElementById(id);
 const deck = $('deck'), dots = $('dots'), rail = $('rail'), live = $('live');
 const sheet = $('sheet');
@@ -667,6 +671,9 @@ function transition(to, mode, dir) {
   if (flow) flow.kill();
   const from = slides[index], next = slides[to];
   gsap.killTweensOf([from, next]);
+  // una transizione interrotta (tocco durante la pausa) non deve lasciare
+  // slide a mezza opacita': tutte le altre si nascondono subito
+  slides.forEach(sl => { if (sl !== from && sl !== next) { gsap.killTweensOf(sl); gsap.set(sl, { autoAlpha:0 }); } });
 
   index = to;
   paint(mode === 'manual');
@@ -683,20 +690,29 @@ function transition(to, mode, dir) {
   flow = gsap.timeline({ onComplete(){ gsap.set(from,{ autoAlpha:0 }); startDwell(); } });
 
   if (mode === 'manual') {
+    gsap.set([from, next], { y:0 });
     flow.fromTo(next, { autoAlpha:1, xPercent:100*dir, scale:1.05 },
                       { xPercent:0, scale:1, duration:.85, ease:'expo.inOut' }, 0)
         .to(from,     { xPercent:-26*dir, scale:.94, autoAlpha:0, duration:.85, ease:'expo.inOut' }, 0);
   } else {
-    flow.fromTo(next, { autoAlpha:0, scale:1.07 },
-                      { autoAlpha:1, scale:1, duration:1.15, ease:'power2.out' }, 0)
-        .to(from,     { autoAlpha:0, scale:.985, duration:.8, ease:'power1.inOut' }, 0);
+    // esce: si allontana e svanisce, lasciando il camino
+    // pausa: solo camino per PAUSA secondi
+    // entra: arriva da vicino e dal basso, come se si posasse sullo schermo
+    const OUT = 1.1, IN = 1.4;
+    gsap.set(next, { autoAlpha:0, xPercent:0 });
+    flow.to(rail, { scaleX:0, duration:OUT, ease:'power2.in' }, 0)
+        .to(from, { autoAlpha:0, scale:.9, y:-30, duration:OUT, ease:'power2.in' }, 0)
+        .fromTo(next, { autoAlpha:0, scale:1.12, y:60 },
+                      { autoAlpha:1, scale:1, y:0, duration:IN, ease:'power3.out' }, OUT + PAUSA)
+        .set(from, { scale:1, y:0 });
   }
 
   // il testo entra dopo l'immagine, mai insieme: si legge una cosa alla volta
   const copy = next.querySelectorAll('.tag,.slide-title,.slide-text,.cta');
   if (copy.length) {
     flow.fromTo(copy, { autoAlpha:0, y:26 },
-      { autoAlpha:1, y:0, duration:.55, stagger:.07, ease:'power2.out' }, .3);
+      { autoAlpha:1, y:0, duration:.55, stagger:.07, ease:'power2.out' },
+      mode === 'manual' ? .3 : 1.1 + PAUSA + .5);
   }
   kenBurns(next);
 }
