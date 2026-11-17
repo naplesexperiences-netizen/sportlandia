@@ -73,7 +73,7 @@
 
   /* Altezze delle fasce fisse: le locandine si adattano a queste */
   --g:30px;                    /* spessore della ghirlanda-cornice */
-  --chrome-top:160px;
+  --chrome-top:135px;
   --chrome-bottom:270px;
   --footer-h:66px;
 
@@ -130,10 +130,6 @@ body{
   letter-spacing:var(--tracking-caps);line-height:1;text-indent:var(--tracking-caps);
   background:linear-gradient(105deg,#fff 0%,#fff3cf 45%,var(--cyan-soft) 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-}
-.brand-tag{
-  font-size:var(--text-sm);font-weight:300;color:rgba(255,255,255,.82);margin-top:var(--space-2);
-  text-shadow:0 2px 12px rgba(0,0,0,.6);
 }
 
 /* ============ PALCO / SLIDE ============ */
@@ -389,7 +385,7 @@ body{
    tutte le regole seguono. Restano solo le misure fisiche dei componenti. */
 @media (min-height:1600px){
   :root{
-    --g:48px;--chrome-top:240px;--chrome-bottom:364px;--footer-h:88px;--logo:62px;--btn:86px;
+    --g:48px;--chrome-top:204px;--chrome-bottom:364px;--footer-h:88px;--logo:62px;--btn:86px;
     --space-unit:6px;
     --text-xs:1rem;--text-sm:1.25rem;--text-md:1.35rem;--text-lg:1.6rem;
     --text-xl:2.7rem;--text-2xl:3.6rem;--text-3xl:4.2rem;
@@ -406,7 +402,7 @@ body{
 /* ============ Mobile / anteprima ============ */
 @media (max-width:520px){
   :root{
-    --g:18px;--chrome-top:114px;--chrome-bottom:206px;--footer-h:60px;--btn:46px;
+    --g:18px;--chrome-top:94px;--chrome-bottom:206px;--footer-h:60px;--btn:46px;
     --space-unit:3px;
     --text-xs:.62rem;--text-sm:.74rem;--text-md:.86rem;--text-lg:.95rem;
     --text-xl:1.5rem;--text-2xl:1.75rem;--text-3xl:1.9rem;
@@ -495,7 +491,6 @@ body{
 <header class="header">
   <p class="brand-kicker">Infitness</p>
   <h1 class="brand-name" translate="no">SPORTLANDIA</h1>
-  <p class="brand-tag">Rendi il tuo corpo sano e in forma</p>
 </header>
 
 <main class="stage">
